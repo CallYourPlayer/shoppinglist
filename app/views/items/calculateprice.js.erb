@@ -1,0 +1,3 @@
+$("#item-<%= @item.id %>").html("<%= @item.quantity %>")
+$("#total_price-<%= @item.id %>").html("<%= @item.total_price.round(2) %> €")
+$("#shoppingTotal-<%= @shopping.id %>").html("<%= @shopping.total_price %>")

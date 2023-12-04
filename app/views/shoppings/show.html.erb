@@ -1,0 +1,33 @@
+<h1>Dettaglio Spesa</h1>
+
+<p>Data: <%= @shopping.date_shopping.strftime("%d/%m/%Y") %></p>
+<p>Totale: <span id="shoppingTotal-<%= @shopping.id %>"><%= @shopping.total.round(2) %> </span>€</p>
+<p>Stato:
+<% if !@shopping.archived? %> 
+ <span class="badge badge-success"><%= @shopping.status.capitalize %>
+ <% else %>
+<span class="badge badge-warning"><%= @shopping.status.capitalize %>
+ </span>
+<% end %>
+<h2>Articoli</h2>
+<table class="table table-striped" id="items-<%= @shopping.id %>">
+  <thead>
+    <tr>
+      <th>Articolo</th><th>Quantità</th><th>Prezzo Unitario</th><th>Prezzo Tot.</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @shopping.items.each do |item| %>
+    <tr>
+      <td><%= item.name %></td>
+      <td><%= item.quantity %></td>
+      <td><%= item.unit_price %> €</td>
+      <td id="total_price-<%= item.id %>"><%= item.total_price.round(2) %> €</td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% unless @shopping.archived? %>
+  <%= link_to "Edit", edit_shopping_path(@shopping), class: 'btn btn-success' %></li>
+<% end %>

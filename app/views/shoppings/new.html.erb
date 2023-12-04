@@ -1,0 +1,29 @@
+<h1>Nuova Spesa</h1>
+<p>Totale: <span id="shoppingTotal-<%= @shopping.id %>"><%= @shopping.total %> </span>€</p>
+
+<h2>Articoli</h2>
+<table class="table table-striped" id="items-<%= @shopping.id %>">
+  <thead>
+    <tr>
+      <th>Articolo</th><th>Quantità</th><th>Prezzo Unitario</th><th>Prezzo Tot.</th><th></th><th></th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <%= render @shopping.items %>
+
+  </tbody>
+</table>
+
+<h2>Aggiungi articoli</h2>
+<%= render 'items/form' %>
+
+<ul>
+  <li><%= link_to "Edit", edit_shopping_path(@shopping), class: 'btn btn-success' %></li>
+  <li><%= link_to "Destroy", shopping_path(@shopping), class: 'btn btn-danger', data: { 
+  	turbo_method: :delete,
+  	turbo_confirm: "Sei sicuro?"
+  } %></li>
+</ul>
+
+<%= render "form", shopping: @shopping %>

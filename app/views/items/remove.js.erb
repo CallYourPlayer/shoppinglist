@@ -1,0 +1,4 @@
+let delete<%= @item.id %> = document.querySelector("#tr_item_" + <%= @item.id %>);
+delete<%= @item.id %>.remove();
+
+$("#shoppingTotal-<%= @shopping.id %>").html("<%= @shopping.total_price %>");

@@ -1,0 +1,28 @@
+<h1>Spesa</h1>
+<p>Data: <%= @shopping.date_shopping.strftime("%d/%m/%Y") %></p>
+<p>Totale: <span id="shoppingTotal-<%= @shopping.id %>"><%= @shopping.total.round(2) %> </span>€</p>
+<%= link_to 'Pagata', {controller: 'shoppings', action: 'archive', 
+            my: {id: @shopping.id}}, 
+            :method => :post, 
+            class: "btn btn-warning" %>
+<%= link_to "Cancella", shopping_path(@shopping), class: 'btn btn-danger', data: { 
+    method: :delete,
+    confirm: "Sei sicuro?"
+  } %>
+
+<h2>Articoli</h2>
+<table class="table table-striped" id="items-<%= @shopping.id %>">
+  <thead>
+    <tr>
+      <th>Articolo</th><th>Quantità</th><th>Prezzo Unitario</th><th>Prezzo Tot.</th><th></th><th></th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <%= render @shopping.items %>
+
+  </tbody>
+</table>
+
+<h2>Aggiungi articoli</h2>
+<%= link_to 'Nuovo Articolo', new_shopping_item_path(@shopping), method: :get, class: "btn btn-info" %>
