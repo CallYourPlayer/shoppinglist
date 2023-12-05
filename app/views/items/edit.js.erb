@@ -1,0 +1,4 @@
+$('#myModalLabel').html("Modifica Articolo")
+$('.modal-body').html("<%= escape_javascript( render partial: 'form', locals: {group: @item} ) %>")
+
+$('#new_item_modal').modal()

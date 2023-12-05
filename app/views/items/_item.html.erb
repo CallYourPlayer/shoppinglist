@@ -14,7 +14,7 @@
             class: "btn btn-info btn-xs" %>
   </td>
   <td>
-    <%= link_to "Modifica", edit_shopping_item_path(item.shopping_id, item), class: 'btn btn-success btn-xs' %>
+    <%= link_to "Modifica", edit_shopping_item_path(item.shopping_id, item), remote: true, class: 'btn btn-success btn-xs' %>
     <%= link_to 'Elimina', {controller: 'items', action: 'remove', 
             my: {id: item.id}}, 
             :method => :delete, :remote => true, 

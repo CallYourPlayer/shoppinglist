@@ -31,7 +31,7 @@ class ShoppingsController < ApplicationController
 
   def edit
     @shopping = Shopping.find(params[:id])
-    #@item = @shopping.items.new
+    @item = @shopping.items.new
   end
 
   def update

@@ -9,13 +9,28 @@ class ItemsController < ApplicationController
 		@item = @shopping.items.create(item_params)
 		#@item.set_total(@item.unit_price * @item.quantity)
 		#@item.total_price = @item.quantity * @item.unit_price
-		@item.update(item_params)
-		redirect_to edit_shopping_path(@shopping)
+		respond_to do |format|
+			if @item.update(item_params)
+				format.html { redirect_to edit_shopping_path(@shopping), notice: 'Articolo creato con successo.' }
+	        	format.json { render action: 'edit', controller: 'shoppings', status: :created, location: edit_shopping_path(@shopping) }
+	        	# added:
+	       		format.json { render action: 'edit', controller: 'shoppings', status: :created, location: edit_shopping_path(@shopping) }
+	      	else
+	        	format.html { render action: 'new' }
+	        	format.json { render json: @item.errors, status: :unprocessable_entity }
+	        	# added:
+	        	format.js   { render json: @item.errors, status: :unprocessable_entity }
+	      	end
+      	end
+		#redirect_to edit_shopping_path(@shopping)
 	end
 
 	def edit
 		@item = Item.find(params[:id])
 		@shopping = Shopping.find(@item.shopping_id)
+		respond_to do |format|
+			format.js
+		end
 	end
 
 	def update

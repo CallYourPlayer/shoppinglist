@@ -1,4 +1,20 @@
-<%= form_with model: [ @shopping, @item ], remote: true do |form| %>
+<%# Conditionally set remote: true. Also, passing model name as data attribute %>
+<% modal ||= false %>
+<% remote = modal ? true : false %>
+
+<%= form_with model: [ @shopping, @item ], remote: remote do |form| %>
+  <% if @item.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
+
+        <ul>
+        <% @item.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
   <div class="form-group">
     <%= form.label :name %><br>
     <%= form.text_field :name, class: 'form-control' %>

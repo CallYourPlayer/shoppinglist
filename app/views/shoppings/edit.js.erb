@@ -1,0 +1,2 @@
+$('#items-<%= @shopping.id %> > tbody:last-child').append("<%= j render partial: 'items/item', locals: {item: @item } %>");
+$('#new_item_modal').modal_success();
