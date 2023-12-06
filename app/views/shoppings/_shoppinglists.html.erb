@@ -1,0 +1,22 @@
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Data</th>
+			<th>Totale</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @shoppings.each do |shopping| %>
+		<tr>
+			<td><%= shopping.date_shopping.strftime("%d/%m/%Y") %></td>
+			<td><%= shopping.total.round(2) %> €</td>
+			<td><%= link_to "Vedi", shopping, class:'btn btn-info' %>
+				<% unless shopping.archived? %>
+					<%= link_to "Modifica", edit_shopping_path(shopping), class: 'btn btn-success' %>
+				<% end %>
+			</td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>

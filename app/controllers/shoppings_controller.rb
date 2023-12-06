@@ -3,6 +3,25 @@ class ShoppingsController < ApplicationController
     @shoppings = Shopping.all
   end
 
+  def search
+    @shoppings
+    @today = Date.today
+    @period = params[:ddlPeriod]
+    if @period == 1
+      @shoppings = Shopping.all
+    elsif @period == 2
+      @sevenDaysBefore = @today - 7
+      @shoppings = Shopping.where(:date_shopping => @sevenDaysBefore..@today)
+    else
+      @thirtyDaysBefore = @today - 30
+      @shoppings = Shopping.where(:date_shopping => @thirtyDaysBefore..@today)
+    end
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+
   def show
     @shopping = Shopping.find(params[:id])
   end

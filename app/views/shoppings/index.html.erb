@@ -1,24 +1,36 @@
 <h1>Shoppings List</h1>
-<%= link_to 'Nuova Spesa', new_shopping_path, method: :get, class: "btn btn-info" %>
-<table class="table table-striped">
-	<thead>
-		<tr>
-			<th>Data</th>
-			<th>Totale</th>
-			<th></th>
-		</tr>
-	</thead>
-	<tbody>
-		<% @shoppings.each do |shopping| %>
-		<tr>
-			<td><%= shopping.date_shopping.strftime("%d/%m/%Y") %></td>
-			<td><%= shopping.total.round(2) %> €</td>
-			<td><%= link_to "Vedi", shopping, class:'btn btn-info' %>
-				<% unless shopping.archived? %>
-					<%= link_to "Modifica", edit_shopping_path(shopping), class: 'btn btn-success' %>
-				<% end %>
-			</td>
-		</tr>
+<%= link_to 'Nuova Spesa', new_shopping_path, method: :get, class: "btn btn-info margin-down" %>
+<div class="row">
+	<div class="col-md-5 mb-3">
+		<label for="ddl_period">Ricerca</label>
+		<%= select_tag( "ddl_period",  options_for_select([ ["Tutte", 1], ["Ultimi 7 giorni", 2], ["Ultimi 30 giorni", 3] ], ["Tutte", 1]), class: "custom-select classic d-block w-100",
+		  data: {
+		    remote: true,
+		    url: 'shoppings/search',
+		    method: 'post'
+		  }
+		)
+		%>	
+	</div>	
+</div>
+<div class="row">
+	<div class="col-md-5 mb-3">
+		<label>Ricerca per date</label>
+		<%= form_with model: @shopping do |form| %>
+		<div class="form-group">
+			<%= form.label :date_start %>
+			<%= form.date_select :date_start %>
+		</div>
+		<div class="form-group">
+			<%= form.label :date_end %>
+			<%= form.date_select :date_end %>
+		</div>
+		<div class="form-group">
+			<%= form.submit class: 'btn btn-primary' %>
+		</div>
 		<% end %>
-	</tbody>
-</table>
+	</div>	
+</div>
+<div id="shoppingTable">
+	<%= render 'shoppinglists' %>
+</div>
