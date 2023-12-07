@@ -7,7 +7,8 @@
 		  data: {
 		    remote: true,
 		    url: 'shoppings/search',
-		    method: 'post'
+		    method: 'post',
+		    format: :js
 		  }
 		)
 		%>	
@@ -16,18 +17,14 @@
 <div class="row">
 	<div class="col-md-5 mb-3">
 		<label>Ricerca per date</label>
-		<%= form_with model: @shopping do |form| %>
-		<div class="form-group">
-			<%= form.label :date_start %>
-			<%= form.date_select :date_start %>
-		</div>
-		<div class="form-group">
-			<%= form.label :date_end %>
-			<%= form.date_select :date_end %>
-		</div>
-		<div class="form-group">
-			<%= form.submit class: 'btn btn-primary' %>
-		</div>
+		<%= form_with url: shoppings_search_by_dates_path, local: false do |form| %>
+			<div class="form-group">
+				<%= form.label :date_start %>
+				<%= form.date_field :date_start, attribute: 'date' %>
+				<%= form.label :date_end %>
+				<%= form.date_field :date_end, attribute: 'date' %>
+				<%= form.submit "Cerca", class: 'btn btn-primary' %>
+			</div>
 		<% end %>
 	</div>	
 </div>

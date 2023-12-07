@@ -1,21 +1,45 @@
 class ShoppingsController < ApplicationController
   def index
-    @shoppings = Shopping.all
+    @shoppings = Shopping.all.order(date_shopping: :asc)
+    @result_total_price = @shoppings.sum(:total_price)
   end
 
   def search
-    @shoppings
+    @shoppings = nil
     @today = Date.today
-    @period = params[:ddlPeriod]
-    if @period == 1
-      @shoppings = Shopping.all
-    elsif @period == 2
+    @period = params[:ddl_period]
+    logger.debug "Period: #{@period}"
+    if @period == '1'
+      logger.debug "Tutte"
+      @shoppings = Shopping.all.order(date_shopping: :asc)
+    elsif @period == '2'
+      logger.debug "Ultimi 7 giorni"
       @sevenDaysBefore = @today - 7
-      @shoppings = Shopping.where(:date_shopping => @sevenDaysBefore..@today)
+      logger.debug "Data iniziale: #{@sevenDaysBefore}"
+      logger.debug "Data finale: #{@today}"
+      @shoppings = Shopping.where(:date_shopping => @sevenDaysBefore..@today).order(date_shopping: :asc).order(date_shopping: :asc).order(date_shopping: :asc)
     else
+      logger.debug "Ultimi 30 giorni"
       @thirtyDaysBefore = @today - 30
-      @shoppings = Shopping.where(:date_shopping => @thirtyDaysBefore..@today)
+      logger.debug "Data iniziale: #{@thirtyDaysBefore}"
+      logger.debug "Data finale: #{@today}"
+      @shoppings = Shopping.where(:date_shopping => @thirtyDaysBefore..@today).order(date_shopping: :asc).order(date_shopping: :asc)
     end
+    @result_total_price = @shoppings.sum(:total_price)
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+
+  def search_by_dates
+    @shoppings = nil
+    @date_start = params[:date_start]
+    @date_end = params[:date_end]
+    logger.debug "Date Start: #{@date_start}"
+    logger.debug "Date End: #{@date_end}"
+    @shoppings = Shopping.where(:date_shopping => @date_start..@date_end).order(date_shopping: :asc)
+    @result_total_price = @shoppings.sum(:total_price)
     respond_to do |format|
       format.html
       format.js

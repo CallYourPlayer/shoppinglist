@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   post 'shoppings/archive'
   post 'shoppings/search'
+  post 'shoppings/search_by_dates'
   post 'items/calculateprice'
   delete 'items/remove'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
