@@ -6,19 +6,16 @@
   <td id="total_price-<%= item.id %>"><%= item.total_price.round(2) %> €</td>
   <td><%= link_to '-1', {controller: 'items', action: 'calculateprice', 
             my: {id: item.id, k: '1', op: 'min'}}, 
-            method: :post, local: false, 
+            method: :post, 
             class: "btn btn-warning btn-xs" %>
   <td><%= link_to '+1', {controller: 'items', action: 'calculateprice', 
             my: {id: item.id, k: '1', op: 'sum'}}, 
-            method: :post, remote: true, 
+            method: :post, 
             class: "btn btn-info btn-xs" %>
   </td>
   <td>
     <%= link_to "Modifica", edit_shopping_item_path(item.shopping_id, item), class: 'btn btn-success btn-xs' %>
-    <%= link_to 'Elimina', {controller: 'items', action: 'remove', 
-            my: {id: item.id}}, 
-            :method => :delete, :remote => true, 
-            class: "btn btn-danger btn-xs" %>
+    <%= link_to "Cancella", shopping_item_path(item.shopping_id, item.id), class: 'btn btn-danger btn-xs', method: :delete %>
   </td>
 </tr>
 <% end %>
