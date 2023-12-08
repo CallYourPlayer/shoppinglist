@@ -1,7 +1,8 @@
 <h1>Spesa</h1>
 <p>Data: <%= @shopping.date_shopping.strftime("%d/%m/%Y") %></p>
 <p>Totale: <span id="shoppingTotal-<%= @shopping.id %>"><%= @shopping.total.round(2) %> </span>€</p>
-<%= link_to 'Pagata', {controller: 'shoppings', action: 'archive', 
+<div class="button-container">
+  <%= link_to 'Pagata', {controller: 'shoppings', action: 'archive', 
             my: {id: @shopping.id}}, 
             :method => :post, 
             class: "btn btn-warning" %>
@@ -9,14 +10,15 @@
     turbo_confirm: "Sei sicuro?"
   } %>
   <%= button_to "Cancella", @shopping, class: 'btn btn-danger', method: :delete %>
-
+</div>
+<br><br>
 <h2>Articoli</h2>
 <%# <%= link_to 'Nuovo Articolo', '#new_item_modal', 'data-toggle' => 'modal', class: "btn btn-info" %>
 <%= link_to 'Nuovo Articolo', new_shopping_item_path(@shopping.id), class: "btn btn-info" %>
 <table class="table table-striped" id="items-<%= @shopping.id %>">
   <thead>
     <tr>
-      <th>Articolo</th><th>Quantità</th><th>Prezzo Unitario</th><th>Prezzo Tot.</th><th></th><th></th>
+      <th>Articolo</th><th>Quantità</th><th>Prezzo Unitario</th><th>Prezzo Tot.</th><th></th>
     </tr>
   </thead>
   <tbody>

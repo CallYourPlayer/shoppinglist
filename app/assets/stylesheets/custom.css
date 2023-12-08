@@ -234,3 +234,7 @@ select.classic:focus {
 .margin-down {
     margin-bottom: 40px;
 }
+
+.button-container .btn{
+    float: left;
+}

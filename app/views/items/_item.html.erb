@@ -4,18 +4,32 @@
   <td id="item-<%= item.id %>"><%= item.quantity %></td>
   <td><%= item.unit_price %> €</td>
   <td id="total_price-<%= item.id %>"><%= item.total_price.round(2) %> €</td>
-  <td><%= link_to '-1', {controller: 'items', action: 'calculateprice', 
+  <td>
+    <div class="button-container">
+    <%= form_with model: [ @shopping, item ], url: shopping_item_path(item.shopping_id, item.id), method: :put do |form| %>
+    <%= form.hidden_field :quantity, value: (item.quantity - 1) %>
+    <%= form.submit "-1", class: "btn btn-warning btn-xs" %>
+    <% end %>
+    <%= form_with model: [ @shopping, item ], url: shopping_item_path(item.shopping_id, item.id), method: :put do |form| %>
+    <%= form.hidden_field :quantity, value: (item.quantity + 1) %>
+    <%= form.submit "+1", class: "btn btn-info btn-xs" %>
+    <% end %>
+    <%# <%= link_to '-1', {controller: 'items', action: 'calculateprice', 
             my: {id: item.id, k: '1', op: 'min'}}, 
             method: :post, 
             class: "btn btn-warning btn-xs" %>
-  <td><%= link_to '+1', {controller: 'items', action: 'calculateprice', 
+          
+  <%# <td><%= link_to '+1', {controller: 'items', action: 'calculateprice', 
             my: {id: item.id, k: '1', op: 'sum'}}, 
             method: :post, 
             class: "btn btn-info btn-xs" %>
+      </div>
   </td>
   <td>
-    <%= link_to "Modifica", edit_shopping_item_path(item.shopping_id, item), class: 'btn btn-success btn-xs' %>
-    <%= button_to "Cancella", shopping_item_path(item.shopping_id, item.id), class: 'btn btn-danger btn-xs', method: :delete %>
+    <div class="button-container">
+      <%= link_to "Modifica", edit_shopping_item_path(item.shopping_id, item), class: 'btn btn-success btn-xs' %>
+      <%= button_to "Cancella", shopping_item_path(item.shopping_id, item.id), class: 'btn btn-danger btn-xs', method: :delete %>
+    </div>
   </td>
 </tr>
 <% end %>
