@@ -5,13 +5,14 @@
             my: {id: @shopping.id}}, 
             :method => :post, 
             class: "btn btn-warning" %>
-<%= link_to "Cancella", shopping_path(@shopping), class: 'btn btn-danger', data: { 
-    method: :delete,
-    confirm: "Sei sicuro?"
+<%# <%= link_to "Cancella", @shopping, class: 'btn btn-danger', data: { turbo_method: :delete,
+    turbo_confirm: "Sei sicuro?"
   } %>
+  <%= button_to "Cancella", @shopping, class: 'btn btn-danger', method: :delete %>
 
 <h2>Articoli</h2>
-<%= link_to 'Nuovo Articolo', '#new_item_modal', 'data-toggle' => 'modal', class: "btn btn-info" %>
+<%# <%= link_to 'Nuovo Articolo', '#new_item_modal', 'data-toggle' => 'modal', class: "btn btn-info" %>
+<%= link_to 'Nuovo Articolo', new_shopping_item_path(@shopping.id), class: "btn btn-info" %>
 <table class="table table-striped" id="items-<%= @shopping.id %>">
   <thead>
     <tr>
