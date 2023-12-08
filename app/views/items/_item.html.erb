@@ -6,11 +6,11 @@
   <td id="total_price-<%= item.id %>"><%= item.total_price.round(2) %> €</td>
   <td><%= link_to '-1', {controller: 'items', action: 'calculateprice', 
             my: {id: item.id, k: '1', op: 'min'}}, 
-            :method => :post, :remote => true, 
+            method: :post, local: false, 
             class: "btn btn-warning btn-xs" %>
   <td><%= link_to '+1', {controller: 'items', action: 'calculateprice', 
             my: {id: item.id, k: '1', op: 'sum'}}, 
-            :method => :post, :remote => true, 
+            method: :post, remote: true, 
             class: "btn btn-info btn-xs" %>
   </td>
   <td>
