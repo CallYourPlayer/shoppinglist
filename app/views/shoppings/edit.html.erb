@@ -2,7 +2,11 @@
 <p>Data: <%= @shopping.date_shopping.strftime("%d/%m/%Y") %></p>
 <p>Totale: <span id="shoppingTotal-<%= @shopping.id %>"><%= @shopping.total.round(2) %> </span>€</p>
 <div class="button-container">
-  <%= link_to 'Pagata', {controller: 'shoppings', action: 'archive', 
+   <%= form_with model: @shopping, url: shopping_path(@shopping.id), method: :put do |form| %>
+    <%= form.hidden_field :status, value: 'pagato' %>
+    <%= form.submit "Pagata", class: "btn btn-warning" %>
+    <% end %>
+  <%# <%= link_to 'Pagata', {controller: 'shoppings', action: 'archive', 
             my: {id: @shopping.id}}, 
             :method => :post, 
             class: "btn btn-warning" %>

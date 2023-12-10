@@ -81,7 +81,7 @@ class ShoppingsController < ApplicationController
     @shopping = Shopping.find(params[:id])
 
     if @shopping.update(shopping_params)
-      redirect_to @shoppings
+      redirect_to @shopping
     else
       render :edit, status: :unprocessable_entity
     end
