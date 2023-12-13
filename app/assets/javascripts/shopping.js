@@ -7,7 +7,33 @@ $(document).ready(function(){
 
   });
 
+  $("input[name='period']").click(function(){
+    if ($(this).val() == '1' || $(this).val() == '2' || $(this).val() == '3') {
+      $('#form_search_dates').hide();
+      this.closest('form').submit();
+    } 
+    else {
+      $('#form_search_dates').show();
+    }
+  });
+
+  var period = urlParam('period');
+  var date = urlParam('date_start');
+  if (period) {
+    $("#period_" + period).attr("checked", true);
+  }
+  if (date) {
+    $("#period_4").attr("checked", true).trigger('click');
+  }
 });
+
+function urlParam(name){
+    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    if (results==null) {
+       return null;
+    }
+    return decodeURI(results[1]) || 0;
+}
 
 (function($) {
 

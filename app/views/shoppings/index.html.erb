@@ -2,16 +2,16 @@
 <%= link_to 'Nuova Spesa', new_shopping_path, method: :get, class: "btn btn-info margin-down" %>
 <%= form_with url: shoppings_path, method: :get do |form| %>
 	<div class="form-group">
- 		<%= form.radio_button :period, 1, onClick: "$('#form_search_dates').hide();this.closest('form').submit();" %> 
+ 		<%= form.radio_button :period, 1 %> 
 		<%= form.label :period, 'Tutte', class:'label_index' %>
 
-		<%= form.radio_button :period, 2, onClick: "$('#form_search_dates').hide();this.closest('form').submit();" %> 
+		<%= form.radio_button :period, 2 %> 
 		<%= form.label :period, 'Ultimi 7 giorni', class:'label_index' %>
 
-		<%= form.radio_button :period, 3, onClick: "$('#form_search_dates').hide();this.closest('form').submit();" %> 
+		<%= form.radio_button :period, 3 %> 
 		<%= form.label :period, 'Ultimi 30 giorni', class:'label_index' %>
 
-		<%= form.radio_button :period, 4, onClick: "$('#form_search_dates').show();" %> 
+		<%= form.radio_button :period, 4 %> 
 		<%= form.label :period, 'Cerca per date', class:'label_index' %>
 	</div>
 <% end %>
