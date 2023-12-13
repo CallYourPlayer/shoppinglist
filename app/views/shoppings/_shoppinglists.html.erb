@@ -1,3 +1,6 @@
+<% if @date_start.present? && @date_end.present? %>
+	<h5><b>Spese dal <%= @date_start %> al <%= @date_end %></b></h5>
+<% end %>
 <table class="table table-striped">
 	<thead>
 		<tr>
@@ -12,12 +15,14 @@
 		<tr>
 			<td><%= shopping.date_shopping.strftime("%d/%m/%Y") %></td>
 			<td><%= shopping.total.round(2) %> €</td>
-			<td><% if !shopping.archived? %> 
- 					<span class="badge badge-success"><%= shopping.status.capitalize %>
-				<% else %>
-					<span class="badge badge-warning"><%= shopping.status.capitalize %>
- 				</span>
-			<% end %></td>
+			<td>
+				<% if !shopping.archived? %> 
+				 <span class="badge badge-success"><%= shopping.status.capitalize %>
+				 <% else %>
+				<span class="badge badge-warning"><%= shopping.status.capitalize %>
+				 </span>
+				<% end %>
+			</td>
 			<td><%= link_to "Vedi", shopping, class:'btn btn-info' %>
 				<% unless shopping.archived? %>
 					<%= link_to "Modifica", edit_shopping_path(shopping), class: 'btn btn-success' %>

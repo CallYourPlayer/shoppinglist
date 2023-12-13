@@ -1,24 +1,25 @@
 <h1>Shoppings List</h1>
 <%= link_to 'Nuova Spesa', new_shopping_path, method: :get, class: "btn btn-info margin-down" %>
-<div class="row">
-	<div class="col-md-5 mb-3">
-		<label for="ddl_period">Ricerca</label>
-		<%= select_tag( "ddl_period",  options_for_select([ ["Tutte", 1], ["Ultimi 7 giorni", 2], ["Ultimi 30 giorni", 3] ], ["Tutte", 1]), class: "custom-select classic d-block w-100",
-		  data: {
-		    remote: true,
-		    url: 'shoppings/search',
-		    method: 'post',
-		    format: :js
-		  }
-		)
-		%>	
-	</div>	
-</div>
-<div class="row">
+<%= form_with url: shoppings_path, method: :get do |form| %>
+	<div class="form-group">
+ 		<%= form.radio_button :period, 1, onClick: "$('#form_search_dates').hide();this.closest('form').submit();" %> 
+		<%= form.label :period, 'Tutte', class:'label_index' %>
+
+		<%= form.radio_button :period, 2, onClick: "$('#form_search_dates').hide();this.closest('form').submit();" %> 
+		<%= form.label :period, 'Ultimi 7 giorni', class:'label_index' %>
+
+		<%= form.radio_button :period, 3, onClick: "$('#form_search_dates').hide();this.closest('form').submit();" %> 
+		<%= form.label :period, 'Ultimi 30 giorni', class:'label_index' %>
+
+		<%= form.radio_button :period, 4, onClick: "$('#form_search_dates').show();" %> 
+		<%= form.label :period, 'Cerca per date', class:'label_index' %>
+	</div>
+<% end %>
+<div class="row" id = 'form_search_dates' style='display: none;'>
 	<div class="col-md-5 mb-3">
 		<label>Ricerca per date</label>
-		<%#<%= form_with url: shoppings_search_by_dates_path, local: false do |form| %>
-		<%= form_with url: shoppings_path do |form| %>
+		<%# <%= form_with url: shoppings_search_by_dates_path, local: false do |form| %>
+		<%= form_with url: shoppings_path, method: :get do |form| %>
 			<div class="form-group">
 				<%= form.label :date_start %>
 				<%= form.date_field :date_start, attribute: 'date' %>

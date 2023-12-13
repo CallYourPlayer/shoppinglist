@@ -12,4 +12,8 @@ class Shopping < ApplicationRecord
 	def total
 		self.items.sum(:total_price)
   	end
+
+  	def self.by_dates(date_start, date_end)
+  		Shopping.where(:date_shopping => @date_start..@date_end).order(date_shopping: :asc)
+  	end
 end

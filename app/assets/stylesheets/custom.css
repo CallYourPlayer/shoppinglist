@@ -238,3 +238,7 @@ select.classic:focus {
 .button-container .btn{
     float: left;
 }
+
+.label_index {
+    margin-right: 10px;
+}

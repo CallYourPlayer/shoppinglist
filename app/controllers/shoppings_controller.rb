@@ -1,6 +1,32 @@
 class ShoppingsController < ApplicationController
   def index
-    @shoppings = Shopping.all.order(date_shopping: :asc)
+    @shoppings = nil
+    @date_start = params[:date_start]
+    @date_end = params[:date_end]
+    @period = params[:period]
+    if @period.present?
+      logger.debug "Period: #{@period}"
+      if @period == '1'
+        logger.debug "Tutte"
+        @shoppings = Shopping.all.order(date_shopping: :asc)
+      elsif @period == '2'
+        logger.debug "Ultimi 7 giorni"
+        @date_end = Date.today
+        @date_start = @date_end - 7
+        @shoppings = Shopping.where(:date_shopping => @date_start..@date_end).order(date_shopping: :asc)
+      elsif @period == '3'
+        logger.debug "Ultimi 30 giorni"
+        @date_end = Date.today
+        @date_start = @date_end - 30
+        @shoppings = Shopping.where(:date_shopping => @date_start..@date_end).order(date_shopping: :asc)
+      end
+    elsif @date_start.present? && @date_end.present?
+      logger.debug "Date: #{@date_start} - #{@date_end}"
+      @shoppings = Shopping.where(:date_shopping => @date_start..@date_end).order(date_shopping: :asc)
+    else
+      logger.debug "No parametri"
+      @shoppings = Shopping.all.order(date_shopping: :asc)
+    end
     @result_total_price = @shoppings.sum(:total_price)
   end
 
@@ -81,7 +107,7 @@ class ShoppingsController < ApplicationController
     @shopping = Shopping.find(params[:id])
 
     if @shopping.update(shopping_params)
-      redirect_to @shopping
+      redirect_to @shoppings
     else
       render :edit, status: :unprocessable_entity
     end
