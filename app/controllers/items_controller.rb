@@ -81,16 +81,9 @@ class ItemsController < ApplicationController
 		@item.update_attribute :total_price, @item.quantity * @item.unit_price
 		@shopping =Shopping.find(@item.shopping_id)
 		@shopping.total_price = @shopping.total
-		#if @item.update(item_params)
-	    	@shopping.total_price = @shopping.total
-	    	@shopping.save
-	      	redirect_to edit_shopping_path(@shopping)
-	    #else
-	      #render :edit, status: :unprocessable_entity
-	    #end
-	#	respond_to do |format|
-	#	  format.js {render 'calculateprice'}
-	#	end
+		respond_to do |format|
+			format.js 
+		end
 	end
 
 	private
