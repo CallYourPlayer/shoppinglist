@@ -23,9 +23,9 @@
 				 </span>
 				<% end %>
 			</td>
-			<td><%= link_to "Vedi", shopping, class:'btn btn-info' %>
+			<td><%= link_to "Vedi", shopping, class:'btn btn-xs btn-info' %>
 				<% unless shopping.archived? %>
-					<%= link_to "Modifica", edit_shopping_path(shopping), class: 'btn btn-success' %>
+					<%= link_to "Modifica", edit_shopping_path(shopping), class: 'btn btn-xs btn-success' %>
 				<% end %>
 			</td>
 		</tr>
