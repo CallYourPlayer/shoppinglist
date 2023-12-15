@@ -30,9 +30,9 @@ class ItemsController < ApplicationController
 	def edit
 		@item = Item.find(params[:id])
 		@shopping = Shopping.find(@item.shopping_id)
-		#respond_to do |format|
-		#	format.js
-		#end
+		respond_to do |format|
+			format.js
+		end
 	end
 
 	def update

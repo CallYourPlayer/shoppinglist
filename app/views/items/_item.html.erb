@@ -27,7 +27,7 @@
   </td>
   <td>
     <div class="button-container">
-      <%= link_to "Modifica", edit_shopping_item_path(item.shopping_id, item), class: 'btn btn-success btn-xs' %>
+      <%= link_to "Modifica", edit_shopping_item_path(item.shopping_id, item), remote: true, class: 'btn btn-success btn-xs' %>
       <%= button_to "Cancella", shopping_item_path(item.shopping_id, item.id), class: 'btn btn-danger btn-xs', method: :delete %>
     </div>
   </td>
