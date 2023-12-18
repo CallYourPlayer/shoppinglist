@@ -32,24 +32,26 @@ class ShoppingsController < ApplicationController
 
   def search
     @shoppings = nil
-    @today = Date.today
-    @period = params[:ddl_period]
-    logger.debug "Period: #{@period}"
-    if @period == '1'
-      logger.debug "Tutte"
-      @shoppings = Shopping.all.order(date_shopping: :asc)
-    elsif @period == '2'
-      logger.debug "Ultimi 7 giorni"
-      @sevenDaysBefore = @today - 7
-      logger.debug "Data iniziale: #{@sevenDaysBefore}"
-      logger.debug "Data finale: #{@today}"
-      @shoppings = Shopping.where(:date_shopping => @sevenDaysBefore..@today).order(date_shopping: :asc).order(date_shopping: :asc).order(date_shopping: :asc)
+    @period = params[:period]
+    if @period.present?
+      logger.debug "Period: #{@period}"
+      if @period == '1'
+        logger.debug "Tutte"
+        @shoppings = Shopping.all.order(date_shopping: :asc)
+      elsif @period == '2'
+        logger.debug "Ultimi 7 giorni"
+        @date_end = Date.today
+        @date_start = @date_end - 7
+        @shoppings = Shopping.where(:date_shopping => @date_start..@date_end).order(date_shopping: :asc)
+      elsif @period == '3'
+        logger.debug "Ultimi 30 giorni"
+        @date_end = Date.today
+        @date_start = @date_end - 30
+        @shoppings = Shopping.where(:date_shopping => @date_start..@date_end).order(date_shopping: :asc)
+      end
     else
-      logger.debug "Ultimi 30 giorni"
-      @thirtyDaysBefore = @today - 30
-      logger.debug "Data iniziale: #{@thirtyDaysBefore}"
-      logger.debug "Data finale: #{@today}"
-      @shoppings = Shopping.where(:date_shopping => @thirtyDaysBefore..@today).order(date_shopping: :asc).order(date_shopping: :asc)
+      logger.debug "No parametri"
+      @shoppings = Shopping.all.order(date_shopping: :asc)
     end
     @result_total_price = @shoppings.sum(:total_price)
     respond_to do |format|

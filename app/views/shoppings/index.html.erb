@@ -1,6 +1,6 @@
 <h1>Shoppings List</h1>
 <%= link_to 'Nuova Spesa', new_shopping_path, method: :get, class: "btn btn-info margin-down" %>
-<%= form_with url: shoppings_path, method: :get do |form| %>
+<%= form_with url:  shoppings_search_path, :id => 'my-form', local: false do |form| %>
 	<div class="form-group">
  		<%= form.radio_button :period, 1 %> 
 		<%= form.label :period, 'Tutte', class:'label_index' %>
@@ -13,13 +13,14 @@
 
 		<%= form.radio_button :period, 4 %> 
 		<%= form.label :period, 'Cerca per date', class:'label_index' %>
+		<%#<%= form.submit '', id: 'submitMyForm' %>
 	</div>
 <% end %>
 <div class="row" id = 'form_search_dates' style='display: none;'>
 	<div class="col-md-5 mb-3">
 		<label>Ricerca per date</label>
-		<%# <%= form_with url: shoppings_search_by_dates_path, local: false do |form| %>
-		<%= form_with url: shoppings_path, method: :get do |form| %>
+		<%= form_with url: shoppings_search_by_dates_path, local: false do |form| %>
+		<%#<%= form_with url: shoppings_path, method: :get do |form| %>
 			<div class="form-group">
 				<%= form.label :date_start %>
 				<%= form.date_field :date_start, attribute: 'date' %>

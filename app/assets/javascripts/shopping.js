@@ -10,7 +10,10 @@ $(document).ready(function(){
   $("input[name='period']").click(function(){
     if ($(this).val() == '1' || $(this).val() == '2' || $(this).val() == '3') {
       $('#form_search_dates').hide();
-      this.closest('form').submit();
+      var elem = $('#my-form')[0];
+      $(elem).submit();
+      //Rails.fire(elem, 'submit');
+      //this.closest('form').submit();
     } 
     else {
       $('#form_search_dates').show();
