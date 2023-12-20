@@ -30,10 +30,14 @@
   <td>
     <div class="button-container">
       <% if can? :update, item %>
-        <%= link_to "Modifica", edit_shopping_item_path(item.shopping_id, item), remote: true, class: 'btn btn-success btn-xs' %>
+        <%= link_to edit_shopping_item_path(item.shopping_id, item), remote: true, class: 'btn btn-success btn-xs' do %>
+          <i class="fa fa-pencil-square-o"></i> Modifica
+        <% end %>
       <% end %>
       <% if can? :destroy, item %>
-        <%= button_to "Cancella", shopping_item_path(item.shopping_id, item.id), class: 'btn btn-danger btn-xs', method: :delete %>
+        <%= button_to shopping_item_path(item.shopping_id, item.id), class: 'btn btn-danger btn-xs', method: :delete do %>
+          <i class="fa fa-trash"></i> Cancella
+        <% end %>
       <% end %>
     </div>
   </td>

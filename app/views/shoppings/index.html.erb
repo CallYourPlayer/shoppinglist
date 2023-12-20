@@ -6,34 +6,52 @@
 	<% end %>
 	<%= form_with url:  shoppings_search_path, :id => 'my-form', local: false, data: { turbolinks: false }  do |form| %>
 		<div class="form-group">
-	 		<%= form.radio_button :period, 1 %> 
-			<%= form.label :period, 'Tutte', class:'label_index' %>
-
-			<%= form.radio_button :period, 2 %> 
-			<%= form.label :period, 'Ultimi 7 giorni', class:'label_index' %>
-
-			<%= form.radio_button :period, 3 %> 
-			<%= form.label :period, 'Ultimi 30 giorni', class:'label_index' %>
-
-			<%= form.radio_button :period, 4 %> 
-			<%= form.label :period, 'Cerca per date', class:'label_index' %>
+			<div class="row">
+				<div class="col-md-3 col-sm-3 col-xs-6">
+			 		<%= form.radio_button :period, 1 %> 
+					<%= form.label :period, 'Tutte', class:'label_index' %>
+				</div>
+				<div class="col-md-3 col-sm-3 col-xs-6">
+					<%= form.radio_button :period, 2 %> 
+					<%= form.label :period, 'Ultimi 7 giorni', class:'label_index' %>
+				</div>
+				<div class="col-md-3 col-sm-3 col-xs-6">
+					<%= form.radio_button :period, 3 %> 
+					<%= form.label :period, 'Ultimi 30 giorni', class:'label_index' %>
+				</div>
+				<div class="col-md-3 col-sm-3 col-xs-6">
+					<%= form.radio_button :period, 4 %> 
+					<%= form.label :period, 'Cerca per date', class:'label_index' %>
+				</div>
 			<%#<%= form.submit '', id: 'submitMyForm' %>
+			</div>
 		</div>
 	<% end %>
-	<div class="row" id = 'form_search_dates' style='display: none;'>
-		<div class="col-md-5 mb-3">
+	<div id = 'form_search_dates' style='display: none;'>
 			<label>Ricerca per date</label>
 			<%= form_with url: shoppings_search_by_dates_path, local: false do |form| %>
 			<%#<%= form_with url: shoppings_path, method: :get do |form| %>
 				<div class="form-group">
-					<%= form.label :date_start %>
-					<%= form.date_field :date_start, attribute: 'date' %>
-					<%= form.label :date_end %>
-					<%= form.date_field :date_end, attribute: 'date' %>
-					<%= form.submit "Cerca", class: 'btn btn-primary' %>
+					<div class="row">
+						<div class="col-md-3 col-sm-3 col-xs-6">
+							<%= form.label :date_start %>
+							<%= form.date_field :date_start, attribute: 'date' %>
+						</div>
+						<div class="col-md-3 col-sm-3 col-xs-6">
+							<%= form.label :date_end %>
+							<%= form.date_field :date_end, attribute: 'date' %>
+						</div>
+						<div class="col-md-3 col-sm-3 col-xs-6">
+							<%= button_tag( :class => "btn btn-primary") do %>
+      					<i class="fa fa-calendar"></i> Cerca
+    					<% end %>
+							<%# <%= form.submit "Cerca", class: 'btn btn-primary' %>
+						</div>
+						<div class="col-md-3 col-sm-3 col-xs-6">
+						</div>
+					</div>
 				</div>
 			<% end %>
-		</div>	
 	</div>
 	<div id="shoppingTable">
 		<%= render 'shoppinglists' %>
