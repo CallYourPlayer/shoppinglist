@@ -7,8 +7,7 @@ class ShoppingsController < ApplicationController
   end
 
   def index
-    #@shoppings = Shopping.where(:user_id => current_user.id).order(date_shopping: :asc)
-    @shoppings = Shopping.all.order(date_shopping: :asc)
+    @shoppings = Shopping.where(:user_id => current_user.id).order(date_shopping: :asc)
     @result_total_price = @shoppings.sum(:total_price)
   end
 
@@ -95,7 +94,7 @@ class ShoppingsController < ApplicationController
 
   def update
     @shopping = Shopping.find(params[:id])
-    @shopping.user_id = current_user.id
+    #@shopping.user_id = current_user.id
     if @shopping.update(shopping_params)
       redirect_to @shopping
     else

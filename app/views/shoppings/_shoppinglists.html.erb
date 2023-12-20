@@ -29,9 +29,9 @@
 						<%= link_to "Vedi", shopping, class:'btn btn-xs btn-info' %>
 					<% end %>
 					<% if can? :update, shopping %>
-						<%# <% unless shopping.archived? %>
+						<% unless shopping.archived? %>
 							<%= link_to "Modifica", edit_shopping_path(shopping), class: 'btn btn-xs btn-success' %>
-						<%# <% end %>
+						<% end %>
 					<% end %>
 				</td>
 			</tr>

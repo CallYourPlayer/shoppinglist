@@ -12,8 +12,8 @@ class Ability
     #   can :manage, :all
     #
     can :create, Shopping
-    can :read, Shopping #, user_id: user.id
-    can :update, Shopping #, user_id: user.id
+    can :read, Shopping, user_id: user.id
+    can :update, Shopping, user_id: user.id
     can :destroy, Shopping, user_id: user.id
     #can :manage, Item, :shopping => { :user_id => user.id }
     can :create, Item
