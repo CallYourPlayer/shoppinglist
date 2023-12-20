@@ -97,4 +97,6 @@ Rails.application.configure do
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 
   config.action_view.preload_links_header = false
+
+  config.action_mailer.default_url_options = { host: 'https://shoppinglist-otrv.onrender.com/' }
 end

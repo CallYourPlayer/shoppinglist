@@ -1,36 +1,44 @@
-<h1>Shoppings List</h1>
-<%= link_to 'Nuova Spesa', new_shopping_path, method: :get, class: "btn btn-info margin-down" %>
-<%= form_with url:  shoppings_search_path, :id => 'my-form', local: false do |form| %>
-	<div class="form-group">
- 		<%= form.radio_button :period, 1 %> 
-		<%= form.label :period, 'Tutte', class:'label_index' %>
+<% if user_signed_in? %> 
+ <div> Welcome <%= current_user.email %> </div> 
+  <%= button_to "Sign out", destroy_user_session_path, method: :delete %> 
 
-		<%= form.radio_button :period, 2 %> 
-		<%= form.label :period, 'Ultimi 7 giorni', class:'label_index' %>
+  <h1>Shoppings List</h1>
+	<%= link_to 'Nuova Spesa', new_shopping_path, method: :get, class: "btn btn-info margin-down" %>
+	<%= form_with url:  shoppings_search_path, :id => 'my-form', local: false, data: { turbolinks: false }  do |form| %>
+		<div class="form-group">
+	 		<%= form.radio_button :period, 1 %> 
+			<%= form.label :period, 'Tutte', class:'label_index' %>
 
-		<%= form.radio_button :period, 3 %> 
-		<%= form.label :period, 'Ultimi 30 giorni', class:'label_index' %>
+			<%= form.radio_button :period, 2 %> 
+			<%= form.label :period, 'Ultimi 7 giorni', class:'label_index' %>
 
-		<%= form.radio_button :period, 4 %> 
-		<%= form.label :period, 'Cerca per date', class:'label_index' %>
-		<%#<%= form.submit '', id: 'submitMyForm' %>
+			<%= form.radio_button :period, 3 %> 
+			<%= form.label :period, 'Ultimi 30 giorni', class:'label_index' %>
+
+			<%= form.radio_button :period, 4 %> 
+			<%= form.label :period, 'Cerca per date', class:'label_index' %>
+			<%#<%= form.submit '', id: 'submitMyForm' %>
+		</div>
+	<% end %>
+	<div class="row" id = 'form_search_dates' style='display: none;'>
+		<div class="col-md-5 mb-3">
+			<label>Ricerca per date</label>
+			<%= form_with url: shoppings_search_by_dates_path, local: false do |form| %>
+			<%#<%= form_with url: shoppings_path, method: :get do |form| %>
+				<div class="form-group">
+					<%= form.label :date_start %>
+					<%= form.date_field :date_start, attribute: 'date' %>
+					<%= form.label :date_end %>
+					<%= form.date_field :date_end, attribute: 'date' %>
+					<%= form.submit "Cerca", class: 'btn btn-primary' %>
+				</div>
+			<% end %>
+		</div>	
 	</div>
+	<div id="shoppingTable">
+		<%= render 'shoppinglists' %>
+	</div>
+<% else %>
+  <%= button_to "Sign in", new_user_session_path %> 
 <% end %>
-<div class="row" id = 'form_search_dates' style='display: none;'>
-	<div class="col-md-5 mb-3">
-		<label>Ricerca per date</label>
-		<%= form_with url: shoppings_search_by_dates_path, local: false do |form| %>
-		<%#<%= form_with url: shoppings_path, method: :get do |form| %>
-			<div class="form-group">
-				<%= form.label :date_start %>
-				<%= form.date_field :date_start, attribute: 'date' %>
-				<%= form.label :date_end %>
-				<%= form.date_field :date_end, attribute: 'date' %>
-				<%= form.submit "Cerca", class: 'btn btn-primary' %>
-			</div>
-		<% end %>
-	</div>	
-</div>
-<div id="shoppingTable">
-	<%= render 'shoppinglists' %>
-</div>
+

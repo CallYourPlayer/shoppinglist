@@ -1,12 +1,22 @@
 class ItemsController < ApplicationController
+	before_action :authenticate_user!
+	load_and_authorize_resource except: :calculateprice
+
+	rescue_from CanCan::AccessDenied do |exception|
+    	redirect_to root_url, :alert => exception.message
+  	end
+
   	def new
   		@shopping = Shopping.find(params[:shopping_id])
 	    @item = @shopping.items.new
+	    logger.debug @item.shopping_id
+	    authorize! :create, @item
   	end
 
 	def create
 		@shopping = Shopping.find(params[:shopping_id])
 		@item = @shopping.items.create(item_params)
+		logger.debug @item.shopping_id
 		#@item.set_total(@item.unit_price * @item.quantity)
 		#@item.total_price = @item.quantity * @item.unit_price
 		respond_to do |format|
@@ -29,6 +39,7 @@ class ItemsController < ApplicationController
 
 	def edit
 		@item = Item.find(params[:id])
+		authorize! :update, @item
 		@shopping = Shopping.find(@item.shopping_id)
 		respond_to do |format|
 			format.js
@@ -50,6 +61,7 @@ class ItemsController < ApplicationController
 
 	def destroy
     	@item = Item.find(params[:id])
+    	authorize! :destroy, @item
     	@shopping = Shopping.find(@item.shopping_id)
     	@item.destroy
 
@@ -58,6 +70,7 @@ class ItemsController < ApplicationController
 
 	def remove
 		@item = Item.find(params[:my][:id])
+		authorize! :destroy, @item
 		@item.destroy
 		@shopping =Shopping.find(@item.shopping_id)
 		@shopping.total_price = @shopping.total
@@ -69,6 +82,7 @@ class ItemsController < ApplicationController
 
 	def calculateprice
 		@item = Item.find(params[:my][:id])
+		#authorize! :update, @item
 		@k = params[:my][:k]
 		@op = params[:my][:op]
 		if @op == "sum"

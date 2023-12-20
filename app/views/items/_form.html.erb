@@ -14,7 +14,7 @@
         </ul>
       </div>
     <% end %>
-
+    <%= form.hidden_field :shopping_id, value: @shopping.id %>
   <div class="form-group">
     <%= form.label :name %><br>
     <%= form.text_field :name, class: 'form-control' %>

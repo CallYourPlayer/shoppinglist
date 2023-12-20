@@ -14,21 +14,27 @@
     <%#<%= form.hidden_field :quantity, value: (item.quantity + 1) %>
     <%#<%= form.submit "+1", class: "btn btn-info btn-xs" %>
     <%#<% end %>
-    <%= link_to '-1', {controller: 'items', action: 'calculateprice', 
-            my: {id: item.id, k: '1', op: 'min'}}, 
-            method: :post, :remote => true,
-            class: "btn btn-warning btn-xs" %>
-          
-    <%= link_to '+1', {controller: 'items', action: 'calculateprice', 
-            my: {id: item.id, k: '1', op: 'sum'}}, 
-            method: :post, :remote => true,
-            class: "btn btn-info btn-xs" %>
-      <%#</div>#%>
+    <% if can? :update, item %>
+      <%= link_to '-1', {controller: 'items', action: 'calculateprice', 
+              my: {id: item.id, k: '1', op: 'min'}}, 
+              method: :post, :remote => true,
+              class: "btn btn-warning btn-xs" %>
+            
+      <%= link_to '+1', {controller: 'items', action: 'calculateprice', 
+              my: {id: item.id, k: '1', op: 'sum'}}, 
+              method: :post, :remote => true,
+              class: "btn btn-info btn-xs" %>
+        <%#</div>#%>
+    <% end %>
   </td>
   <td>
     <div class="button-container">
-      <%= link_to "Modifica", edit_shopping_item_path(item.shopping_id, item), remote: true, class: 'btn btn-success btn-xs' %>
-      <%= button_to "Cancella", shopping_item_path(item.shopping_id, item.id), class: 'btn btn-danger btn-xs', method: :delete %>
+      <% if can? :update, item %>
+        <%= link_to "Modifica", edit_shopping_item_path(item.shopping_id, item), remote: true, class: 'btn btn-success btn-xs' %>
+      <% end %>
+      <% if can? :destroy, item %>
+        <%= button_to "Cancella", shopping_item_path(item.shopping_id, item.id), class: 'btn btn-danger btn-xs', method: :delete %>
+      <% end %>
     </div>
   </td>
 </tr>

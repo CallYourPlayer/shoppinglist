@@ -122,6 +122,9 @@ a:hover {
     font-size: calc(1.275rem + .3vw)!important;
 }
 
+.navbar { 
+    position: fixed; 
+}
 .nav-pills {
     --bs-nav-pills-border-radius: var(--bs-border-radius);
     --bs-nav-pills-link-active-color: #fff;

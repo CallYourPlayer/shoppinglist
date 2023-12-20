@@ -19,11 +19,16 @@
 <%= render 'items/form' %>
 
 <ul>
-  <li><%= link_to "Edit", edit_shopping_path(@shopping), class: 'btn btn-success' %></li>
-  <li><%= link_to "Destroy", shopping_path(@shopping), class: 'btn btn-danger', data: { 
-  	turbo_method: :delete,
-  	turbo_confirm: "Sei sicuro?"
-  } %></li>
+  <% if can? :update, @shopping %>
+    <li><%= link_to "Edit", edit_shopping_path(@shopping), class: 'btn btn-success' %></li>
+  <% end %>
+  <% if can? :destroy, @shopping %>
+    <li><%= link_to "Destroy", shopping_path(@shopping), class: 'btn btn-danger', data: { 
+    	turbo_method: :delete,
+    	turbo_confirm: "Sei sicuro?"
+    } %>
+    </li>
+  <% end %>
 </ul>
 
 <%= render "form", shopping: @shopping %>
