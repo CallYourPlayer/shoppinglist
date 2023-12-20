@@ -5,7 +5,10 @@
   <% if can? :update, @shopping %>
    <%= form_with model: @shopping, url: shopping_path(@shopping.id), method: :put do |form| %>
     <%= form.hidden_field :status, value: 'pagato' %>
-    <%= form.submit "Pagata", class: "btn btn-warning" %>
+    <%# <%= form.submit "Pagata", class: "btn btn-warning" %>
+    <%= button_tag( :class => "btn btn-warning") do %>
+      <i class="fa fa-credit-card"></i> Pagata
+    <% end %>
     <% end %>
   <%# <%= link_to 'Pagata', {controller: 'shoppings', action: 'archive', 
             my: {id: @shopping.id}}, 

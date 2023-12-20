@@ -18,19 +18,26 @@
 				<td><%= shopping.total.round(2) %> €</td>
 				<td>
 					<% if !shopping.archived? %> 
-					 <span class="badge badge-success"><%= shopping.status.capitalize %>
+					 <span class="badge badge-success"> 
+					 	<i class="fa fa-shopping-cart"></i>
+					 	<%= shopping.status.capitalize %>
 					 <% else %>
-					<span class="badge badge-warning"><%= shopping.status.capitalize %>
+					<span class="badge badge-warning"><i class="fa fa-credit-card"></i>
+						<%= shopping.status.capitalize %>
 					 </span>
 					<% end %>
 				</td>
 				<td>
 					<% if can? :read, shopping %>
-						<%= link_to "Vedi", shopping, class:'btn btn-xs btn-info' %>
+						<%= link_to shopping, class:'btn btn-xs btn-info' do %>
+							<i class="fa fa-file-text-o"></i> Vedi
+						<% end %>
 					<% end %>
 					<% if can? :update, shopping %>
 						<% unless shopping.archived? %>
-							<%= link_to "Modifica", edit_shopping_path(shopping), class: 'btn btn-xs btn-success' %>
+							<%= link_to edit_shopping_path(shopping), class: 'btn btn-xs btn-success' do %>
+								<i class="fa fa-pencil-square-o"></i> Modifica
+							<% end %> 
 						<% end %>
 					<% end %>
 				</td>

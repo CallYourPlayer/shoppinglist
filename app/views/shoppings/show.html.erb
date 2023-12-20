@@ -4,9 +4,9 @@
 <p>Totale: <span id="shoppingTotal-<%= @shopping.id %>"><%= @shopping.total.round(2) %> </span>€</p>
 <p>Stato:
 <% if !@shopping.archived? %> 
- <span class="badge badge-success"><%= @shopping.status.capitalize %>
+ <span class="badge badge-success"><i class="fa fa-shopping-cart"></i> <%= @shopping.status.capitalize %>
  <% else %>
-<span class="badge badge-warning"><%= @shopping.status.capitalize %>
+<span class="badge badge-warning"><i class="fa fa-credit-card"></i> <%= @shopping.status.capitalize %>
  </span>
 <% end %>
 <h2>Articoli</h2>
@@ -29,6 +29,8 @@
 </table>
 <% if can? :update, @shopping %>
   <% unless @shopping.archived? %>
-    <%= link_to "Edit", edit_shopping_path(@shopping), class: 'btn btn-success' %></li>
+    <%= link_to edit_shopping_path(@shopping), class: 'btn btn-success' do %>
+      <i class="fa fa-pencil-square-o"></i> Edit
+    <% end %>
   <% end %>
 <% end %>

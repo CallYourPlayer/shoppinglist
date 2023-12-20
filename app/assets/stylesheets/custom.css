@@ -122,55 +122,6 @@ a:hover {
     font-size: calc(1.275rem + .3vw)!important;
 }
 
-.navbar { 
-    position: fixed; 
-}
-.nav-pills {
-    --bs-nav-pills-border-radius: var(--bs-border-radius);
-    --bs-nav-pills-link-active-color: #fff;
-    --bs-nav-pills-link-active-bg: #0d6efd;
-}
-.nav {
-    --bs-nav-link-padding-x: 1rem;
-    --bs-nav-link-padding-y: 0.5rem;
-    --bs-nav-link-font-weight: ;
-    --bs-nav-link-color: var(--bs-link-color);
-    --bs-nav-link-hover-color: var(--bs-link-hover-color);
-    --bs-nav-link-disabled-color: var(--bs-secondary-color);
-    display: flex;
-    flex-wrap: wrap;
-    padding-left: 0;
-    margin-bottom: 0;
-    list-style: none;
-}
-
-.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
-    color: var(--bs-nav-pills-link-active-color);
-    background-color: var(--bs-nav-pills-link-active-bg);
-}
-.nav-pills .nav-link {
-    border-radius: var(--bs-nav-pills-border-radius);
-}
-.nav-link {
-    display: block;
-    padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
-    font-size: var(--bs-nav-link-font-size);
-    font-weight: var(--bs-nav-link-font-weight);
-    color: var(--bs-nav-link-color);
-    text-decoration: none;
-    background: 0 0;
-    border: 0;
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
-}
-
-.navbar-brand {
-  color: #fff;
-}
-.navbar-nav>li {
-    padding: 0 20px;
-    list-style-type: none;
-}
-
 .btn-dropdown {
     text-align: left;
 }
@@ -248,4 +199,64 @@ select.classic:focus {
 
 .d-none {
     display: none;
+}
+
+body {
+    padding: 0;
+ }
+
+ .navbar {
+    position: relative;
+    background: #428bca;
+}
+
+#navlist {
+   list-style: none;
+   display: flex;
+   padding: 0;
+   margin: 0;
+   background: #428bca;
+}
+
+#navlist li {
+  flex: auto;
+  text-align: center;
+  padding: 1.1em;
+  font-size: 15px;
+  color: white;
+}
+
+#navlist li:hover {
+    background: #17a2b8;
+}
+
+#toggle-nav {
+   display: none;
+   margin: auto;
+   cursor: pointer;
+}
+
+.navbar li a {
+    color: white;
+}
+.navbar li a:hover, .navbar li a:focus {
+    color: white;
+    text-decoration: none;
+}
+
+@media all and (max-width: 500px) { 
+
+    .navbar {
+        padding: 1.6em;
+    }
+
+    #navlist {
+        flex-direction: column;
+        display: none;
+    }
+
+    #toggle-nav {
+        display: block;
+        color: white;
+    }
 }

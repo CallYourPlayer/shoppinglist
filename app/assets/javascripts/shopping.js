@@ -7,6 +7,24 @@ $(document).ready(function(){
 
   });
 
+  var nav = document.getElementById('navlist');
+
+    function toggleNav() {       
+      if ( nav.style.display === "" )
+        nav.style.display = "block";
+
+      else
+        nav.style.display = "";
+    }
+
+
+    function windowResizeHandler () {
+      if ( screen.width > 500 )
+        nav.style.display = "";
+    }
+
+    window.addEventListener("resize", windowResizeHandler);
+
   $("input[name='period']").click(function(){
     if ($(this).val() == '1' || $(this).val() == '2' || $(this).val() == '3') {
       $('#form_search_dates').hide();
