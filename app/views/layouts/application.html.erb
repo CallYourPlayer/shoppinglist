@@ -38,8 +38,8 @@
         <li>
           <% if user_signed_in? %> 
             <i class="fa fa-user-o fa-1"></i> <%= current_user.email %> 
-            <%= link_to "Sign out", destroy_user_session_path, method: :delete %> 
-          <% end %>
+              <%= link_to "Sign out", destroy_user_session_path, method: :delete %> 
+            <% end %>
         </li>
       </ul>
     </nav>

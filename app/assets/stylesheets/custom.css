@@ -260,3 +260,7 @@ body {
         color: white;
     }
 }
+
+.selectedItem {
+    background-color: #f5f542 !important;
+}

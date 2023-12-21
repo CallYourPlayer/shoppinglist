@@ -1,23 +1,17 @@
 <h1>Spesa</h1>
-<p>Data: <%= @shopping.date_shopping.strftime("%d/%m/%Y") %></p>
-<p>Totale: <span id="shoppingTotal-<%= @shopping.id %>"><%= @shopping.total.round(2) %> </span>€</p>
+<p><i class="fa fa-calendar"></i> <b>Data:</b> <%= @shopping.date_shopping.strftime("%d/%m/%Y") %></p>
+<p><i class="fa fa-money"></i> <b>Totale:</b> <span id="shoppingTotal-<%= @shopping.id %>"><%= @shopping.total.round(2) %> </span>€</p>
 <div class="button-container">
   <% if can? :update, @shopping %>
-   <%= form_with model: @shopping, url: shopping_path(@shopping.id), method: :put do |form| %>
-    <%= form.hidden_field :status, value: 'pagato' %>
-    <%# <%= form.submit "Pagata", class: "btn btn-warning" %>
-    <%= button_tag( :class => "btn btn-warning") do %>
-      <i class="fa fa-credit-card"></i> Pagata
+    <% if @shopping.total > 0 %>
+      <%= form_with model: @shopping, url: shopping_path(@shopping.id), method: :put do |form| %>
+        <%= form.hidden_field :status, value: 'pagato' %>
+        <%= button_tag( :class => "btn btn-warning") do %>
+          <i class="fa fa-credit-card"></i> Pagata
+        <% end %>
+      <% end %>
     <% end %>
-  <% end %>
-  <%# <%= link_to 'Pagata', {controller: 'shoppings', action: 'archive', 
-            my: {id: @shopping.id}}, 
-            :method => :post, 
-            class: "btn btn-warning" %>
-<%# <%= link_to "Cancella", @shopping, class: 'btn btn-danger', data: { turbo_method: :delete,
-    turbo_confirm: "Sei sicuro?"
-  } %>
-  <% end %>
+   <% end %>
   <% if can? :destroy, @shopping %>
     <%= button_tag( :class => "btn btn-danger") do %>
       <i class="fa fa-trash"></i> Cancella
@@ -27,12 +21,14 @@
 </div>
 <br><br>
 <h2>Articoli</h2>
-<%= link_to 'Nuovo Articolo', '#new_item_modal', 'data-toggle' => 'modal', class: "btn btn-info" %>
-<%# <%= link_to 'Nuovo Articolo', new_shopping_item_path(@shopping.id), class: "btn btn-info" %>
+<%= link_to '#new_item_modal', 'data-toggle' => 'modal', class: "btn btn-info" do %>
+  <i class="fa fa-cart-plus"></i> Nuovo Articolo
+<% end %>
+
 <table class="table table-striped" id="items-<%= @shopping.id %>">
   <thead>
     <tr>
-      <th>Articolo</th><th>Quantità</th><th>Prezzo Unitario</th><th>Prezzo Tot.</th><th></th>
+      <th></th><th>Articolo</th><th>Quantità</th><th>Prezzo Unitario</th><th>Prezzo Tot.</th><th></th><th></th>
     </tr>
   </thead>
   <tbody>
@@ -60,3 +56,9 @@
     </div>
   </div>
 </div>
+
+<script>
+  $('.itemChk').click(function() {
+    $(this).closest('tr').toggleClass("selectedItem");
+  });
+</script>
