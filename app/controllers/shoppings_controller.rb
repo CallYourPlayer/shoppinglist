@@ -90,12 +90,17 @@ class ShoppingsController < ApplicationController
     @shopping = Shopping.find(params[:id])
     authorize! :update, @shopping
     @item = @shopping.items.new
+    @paid_items = @shopping.items.where(:payed => true)
+    @result_total_price = @paid_items.sum(:total_price)
   end
 
   def update
     @shopping = Shopping.find(params[:id])
     #@shopping.user_id = current_user.id
     if @shopping.update(shopping_params)
+      if @shopping.status = 'pagato'
+        @shopping.items.update_all(payed: true)
+      end
       redirect_to @shopping
     else
       render :edit, status: :unprocessable_entity

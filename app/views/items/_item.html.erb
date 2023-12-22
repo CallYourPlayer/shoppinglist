@@ -5,6 +5,20 @@
   <td id="item-<%= item.id %>"><%= item.quantity %></td>
   <td><%= item.unit_price %> €</td>
   <td id="total_price-<%= item.id %>"><%= item.total_price.round(2) %> €</td>
+  <td id="item_paid-<%= item.id %>">
+    <%#<%= link_to "Da Pagare", { controller: 'items', action: :paid_item, id: item.id }, { class: "btn btn-primary btn-xs", method: :post, remote: true} %>
+    <% if item.payed? %>
+      <%= link_to 'Pagato', {controller: 'items', action: 'paid_item', id: item.id}, 
+              method: :post, :remote => true,
+              class: "btn btn-success btn-xs" %>
+    <% else %>
+      <%= link_to 'Da Pagare', {controller: 'items', action: 'paid_item', id: item.id}, 
+              method: :post, :remote => true,
+              class: "btn btn-primary btn-xs" %>
+    <%#<%= link_to controller: 'items', action: 'calculateprice', id: item.id, method: :post, :remote => true,
+              class: "btn btn-warning btn-xs" do %>
+    <% end %>
+  </td>
   <td>
     <% if can? :update, item %>
       <%= link_to '-1', {controller: 'items', action: 'calculateprice', 

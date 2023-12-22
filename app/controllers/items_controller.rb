@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
 	before_action :authenticate_user!
-	load_and_authorize_resource except: :calculateprice
+	load_and_authorize_resource except: [:calculateprice, :paid_item]
 
 	rescue_from CanCan::AccessDenied do |exception|
     	redirect_to root_url, :alert => exception.message
@@ -100,8 +100,24 @@ class ItemsController < ApplicationController
 		end
 	end
 
+	def paid_item
+		@item = Item.find(params[:id])
+		#authorize! :update, @item
+		if @item.payed?
+			@item.update_attribute :payed, false
+		else
+			@item.update_attribute :payed, true
+		end
+		@shopping =Shopping.find(@item.shopping_id)
+		@paid_items = @shopping.items.where(:payed => true)
+		@result_total_price = @paid_items.sum(:total_price)
+		respond_to do |format|
+			format.js 
+		end
+	end
+
 	private
 	def item_params
-		params.require(:item).permit(:name, :quantity, :unit_price, :total_price)
+		params.require(:item).permit(:name, :quantity, :unit_price, :total_price, :payed)
 	end
 end

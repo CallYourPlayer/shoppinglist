@@ -1,0 +1,7 @@
+<% if @item.payed? %> 
+	$("#item_paid-<%= @item.id %>").html('<%= link_to "Pagato", {controller: "items", action: "paid_item", id: @item.id}, { class: "btn btn-success btn-xs", method: :post, remote: true} %>');
+<% else %>
+	$("#item_paid-<%= @item.id %>").html('<%= link_to "Da Pagare", {controller: "items", action: "paid_item", id: @item.id}, { class: "btn btn-primary btn-xs", method: :post, remote: true} %>');
+<% end %>
+
+$("#shoppingPaid-<%= @shopping.id %>").html("<%= @result_total_price %>");
