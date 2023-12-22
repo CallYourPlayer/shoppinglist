@@ -1,3 +1,8 @@
+@media (max-width: 726px) {
+    body {
+        width: fit-content;
+    }
+}
 .badge {
   padding: 1px 9px 2px;
   font-size: 12.025px;

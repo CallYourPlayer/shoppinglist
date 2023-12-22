@@ -3,7 +3,7 @@
 <p><i class="fa fa-money"></i> <b>Totale:</b> <span id="shoppingTotal-<%= @shopping.id %>"><%= @shopping.total.round(2) %> </span>€</p>
 <p><i class="fa fa-credit-card"></i> <b>Totale Pagato:</b> <span id="shoppingPaid-<%= @shopping.id %>"><%= @result_total_price.round(2) %> </span>€</p>
 <div class="button-container">
-  <%#<% if can? :update, @shopping %>
+  <% if can? :update, @shopping %>
     <% if @shopping.total > 0 %>
       <%= form_with model: @shopping, url: shopping_path(@shopping.id), method: :put do |form| %>
         <%= form.hidden_field :status, value: 'pagato' %>
@@ -12,7 +12,7 @@
         <% end %>
       <% end %>
     <% end %>
-   <%#<% end %>
+   <% end %>
   <% if can? :destroy, @shopping %>
     <%= button_tag( :class => "btn btn-danger") do %>
       <i class="fa fa-trash"></i> Cancella
@@ -29,7 +29,7 @@
 <table class="table table-striped" id="items-<%= @shopping.id %>">
   <thead>
     <tr>
-      <th></th><th>Articolo</th><th>Quantità</th><th>Prezzo Unitario</th><th>Prezzo Tot.</th><th></th><th></th>
+      <th></th><th>Articolo</th><th>Quantità</th><th>Prezzo Unitario</th><th>Prezzo Tot.</th><th></th><th></th><th></th>
     </tr>
   </thead>
   <tbody>
