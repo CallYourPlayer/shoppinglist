@@ -62,7 +62,10 @@
 }
 
 .div-container {
-  padding: 10px;
+  margin-right: auto; 
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 .py-3 {
@@ -83,6 +86,7 @@
 }
 .d-flex {
     display: flex!important;
+    flex-direction: column;
 }
 
 .link-body-emphasis:focus, .link-body-emphasis:hover {
@@ -110,9 +114,7 @@ a:hover {
 .align-items-center {
     align-items: center!important;
 }
-.d-flex {
-    display: flex!important;
-}
+
 .link-body-emphasis {
     color: RGBA(var(--bs-emphasis-color-rgb),var(--bs-link-opacity,1))!important;
     -webkit-text-decoration-color: RGBA(var(--bs-emphasis-color-rgb),var(--bs-link-underline-opacity,1))!important;
@@ -268,4 +270,255 @@ body {
 
 .selectedItem {
     background-color: #f5f542 !important;
+}
+
+
+
+.user-list tbody td > img {
+    position: relative;
+    max-width: 50px;
+    float: left;
+    margin-right: 15px;
+}
+.user-list tbody td .user-link {
+    display: inline-block;
+    font-size: 1.25em;
+    padding-top: 3px;
+    margin-left: 15px;
+}
+.user-list tbody td .user-subhead {
+    font-size: 0.875em;
+    font-style: italic;
+}
+
+.user-list tbody td > .fa-money {
+    font-size: 1.5em;
+}
+
+/* TABLES */
+#shoppingTable .table {
+    border-collapse: separate;
+}
+#shoppingTable .table-hover > tbody > tr:hover > td,
+#shoppingTable .table-hover > tbody > tr:hover > th {
+    background-color: #eee;
+}
+#shoppingTable .table thead > tr > th {
+    border-bottom: 1px solid #C2C2C2;
+    padding-bottom: 0;
+}
+#shoppingTable .table tbody > tr > td {
+    font-size: 0.875em;
+    background: #f5f5f5;
+    border-top: 10px solid #fff;
+    vertical-align: middle;
+    padding: 12px 8px;
+}
+#shoppingTable .table tbody > tr > td:first-child,
+#shoppingTable .table thead > tr > th:first-child {
+    padding-left: 20px;
+}
+#shoppingTable .table thead > tr > th span {
+    border-bottom: 2px solid #C2C2C2;
+    display: inline-block;
+    padding: 0 5px;
+    padding-bottom: 5px;
+    font-weight: normal;
+}
+#shoppingTable .table thead > tr > th > a span {
+    color: #344644;
+}
+#shoppingTable .table thead > tr > th > a span:after {
+    content: "\f0dc";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    margin-left: 5px;
+    font-size: 0.75em;
+}
+#shoppingTable .table thead > tr > th > a.asc span:after {
+    content: "\f0dd";
+}
+#shoppingTable .table thead > tr > th > a.desc span:after {
+    content: "\f0de";
+}
+#shoppingTable .table thead > tr > th > a:hover span {
+    text-decoration: none;
+    color: #2bb6a3;
+    border-color: #2bb6a3;
+}
+#shoppingTable .table.table-hover tbody > tr > td {
+    -webkit-transition: background-color 0.15s ease-in-out 0s;
+    transition: background-color 0.15s ease-in-out 0s;
+}
+#shoppingTable .table tbody tr td .call-type {
+    display: block;
+    font-size: 0.75em;
+    text-align: center;
+}
+#shoppingTable .table tbody tr td .first-line {
+    line-height: 1.5;
+    font-weight: 400;
+    font-size: 1.125em;
+}
+#shoppingTable .table tbody tr td .first-line span {
+    font-size: 0.875em;
+    color: #969696;
+    font-weight: 300;
+}
+#shoppingTable .table tbody tr td .second-line {
+    font-size: 0.875em;
+    line-height: 1.2;
+}
+#shoppingTable .table a.table-link {
+    margin: 0 5px;
+    font-size: 1.125em;
+}
+#shoppingTable .table a.table-link:hover {
+    text-decoration: none;
+    color: #2aa493;
+}
+#shoppingTable .table a.table-link.danger {
+    color: #fe635f;
+}
+#shoppingTable .table a.table-link.danger:hover {
+    color: #dd504c;
+}
+
+.table-products tbody > tr > td {
+    background: none;
+    border: none;
+    border-bottom: 1px solid #ebebeb;
+    -webkit-transition: background-color 0.15s ease-in-out 0s;
+    transition: background-color 0.15s ease-in-out 0s;
+    position: relative;
+}
+.table-products tbody > tr:hover > td {
+    text-decoration: none;
+    background-color: #f6f6f6;
+}
+.table-products .name {
+    display: block;
+    font-weight: 600;
+    padding-bottom: 7px;
+}
+.table-products .price {
+    display: block;
+    text-decoration: none;
+    width: 50%;
+    float: left;
+    font-size: 0.875em;
+}
+.table-products .price > i {
+    color: #8dc859;
+}
+.table-products .warranty {
+    display: block;
+    text-decoration: none;
+    width: 50%;
+    float: left;
+    font-size: 0.875em;
+}
+.table-products .warranty > i {
+    color: #f1c40f;
+}
+#shoppingTable .table tbody > tr.table-line-fb > td {
+    background-color: #9daccb;
+    color: #262525;
+}
+#shoppingTable .table tbody > tr.table-line-twitter > td {
+    background-color: #9fccff;
+    color: #262525;
+}
+#shoppingTable .table tbody > tr.table-line-plus > td {
+    background-color: #eea59c;
+    color: #262525;
+}
+#shoppingTable .table-stats .status-social-icon {
+    font-size: 1.9em;
+    vertical-align: bottom;
+}
+.table-stats .table-line-fb .status-social-icon {
+    color: #556484;
+}
+.table-stats .table-line-twitter .status-social-icon {
+    color: #5885b8;
+}
+.table-stats .table-line-plus .status-social-icon {
+    color: #a75d54;
+}
+
+.holder {
+  background: #f0efe9;
+  min-height: 100vh;
+}
+
+.rounded {
+  border-radius: 1rem !important;
+}
+
+.text-gray {
+  color: #aaa;
+}
+
+.fst-italic {
+    font-style: italic!important;
+}
+
+.rounded {
+    border-radius: 0.25rem!important;
+}
+
+.rounded {
+    border-radius: 1rem !important;
+}
+
+.border-0 {
+    border-width: 0!important;
+}
+.border-0 {
+    border: 0!important;
+}
+.position-relative {
+    position: relative!important;
+}
+
+.mx-auto {
+    margin-right: auto!important;
+    margin-left: auto!important;
+}
+
+.shadow-sm {
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+}
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 0.25rem;
+}
+
+.card-body {
+    flex: 1 1 auto;
+    padding: 1rem 1rem;
+}
+
+.p-5 {
+    padding: 3rem!important;
+}
+
+.rowCenter {
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: calc(var(--bs-gutter-y) * -1);
+    margin-right: calc(var(--bs-gutter-x)/ -2);
+    margin-left: calc(var(--bs-gutter-x)/ -2);
 }

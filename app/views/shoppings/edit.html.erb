@@ -14,7 +14,7 @@
     <% end %>
    <% end %>
   <% if can? :destroy, @shopping %>
-    <%= button_tag( :class => "btn btn-danger") do %>
+    <%= link_to @shopping, class:'btn btn-danger', method: :delete do %>
       <i class="fa fa-trash"></i> Cancella
     <% end %>
     <%#<%= button_to "Cancella", @shopping, class: 'btn btn-danger', method: :delete %>
@@ -62,4 +62,27 @@
   $('.itemChk').click(function() {
     $(this).closest('tr').toggleClass("selectedItem");
   });
+
+  $('[data-dismiss=modal]').on('click', function (e) {
+    var $t = $(this),
+        target = $t[0].href || $t.data("target") || $t.parents('.modal') || [];
+
+  $(target)
+    .find("[type=text]")
+       .val('')
+       .end()
+    .find("[type=number]")
+       .val('')
+       .end();
+
+  $(target)
+    .find("[type=submit]")
+       .val('Create Item');
+
+  $('#item_quantity', target).val('1');
+  $('#item_unit_price', target).val('0.0');
+  $('#myModalLabel', target).text('Crea nuovo articolo');
+
+  $(target).find('form').attr('action', '/shoppings/<%= @shopping.id %>/items')
+})
 </script>

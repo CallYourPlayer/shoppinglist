@@ -1,35 +1,53 @@
-<h1>Dettaglio Spesa</h1>
-<p><i class="fa fa-calendar"></i> <b>Data:</b> <%= @shopping.date_shopping.strftime("%d/%m/%Y") %></p>
-<p><i class="fa fa-money"></i> <b>Totale:</b> <span id="shoppingTotal-<%= @shopping.id %>"><%= @shopping.total.round(2) %> </span>€</p>
-<p><i class="fa fa-credit-card"></i> <b>Stato:</b> 
-<% if !@shopping.archived? %> 
- <span class="badge badge-success"><i class="fa fa-shopping-cart"></i> <%= @shopping.status.capitalize %>
- <% else %>
-<span class="badge badge-warning"><i class="fa fa-credit-card"></i> <%= @shopping.status.capitalize %>
- </span>
-<% end %>
-<h2>Articoli</h2>
-<table class="table table-striped" id="items-<%= @shopping.id %>">
-  <thead>
-    <tr>
-      <th>Articolo</th><th>Quantità</th><th>Prezzo Unitario</th><th>Prezzo Tot.</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @shopping.items.each do |item| %>
-    <tr>
-      <td><%= item.name %></td>
-      <td><%= item.quantity %></td>
-      <td><%= item.unit_price %> €</td>
-      <td id="total_price-<%= item.id %>"><%= item.total_price.round(2) %> €</td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
-<% if can? :update, @shopping %>
-  <% unless @shopping.archived? %>
-    <%= link_to edit_shopping_path(@shopping), class: 'btn btn-success' do %>
-      <i class="fa fa-pencil-square-o"></i> Edit
-    <% end %>
-  <% end %>
-<% end %>
+<div class="holder align-items-center justify-content-center">
+  <div class="container">
+    <header class="text-center mb-5">
+      <h1 class="display-4">Dettaglio Spesa</h1>
+      <p class="fst-italic text-muted subheading"><i class="fa fa-money"></i> Totale: <%= @shopping.total.round(2) %> €</p>
+    </header>
+
+    <div class="row rowCenter">
+      <div class="col-lg-5 mx-auto">
+        <div class="card rounded border-0 shadow-sm position-relative">
+          <div class="card-body p-5">
+            <div class="d-flex align-items-center mb-4 pb-4 border-bottom">
+              <i class="fa fa-calendar fa-3x"></i>
+              <div class="ms-3">
+                <h4 class="text-uppercase fw-weight-bold mb-0" style="padding-top: 10px; padding-left: 10px;">
+                  <%= @shopping.date_shopping.strftime("%A") %>
+                </h4>
+                <p class="text-gray fst-italic mb-0" style="padding-left: 10px;"><%= @shopping.date_shopping.strftime("%d") %>
+                    <%= @shopping.date_shopping.strftime("%B") %> <%= @shopping.date_shopping.strftime("%Y") %>
+                </p>
+              </div>
+            </div>
+            <table class="table" id="items-<%= @shopping.id %>">
+              <thead>
+                <tr>
+                  <th>Articolo</th><th>Quantità</th><th>Prezzo Unitario</th><th>Prezzo Tot.</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @shopping.items.each do |item| %>
+                  <tr>
+                    <td><span class="fst-italic pl-1"><%= item.name %></span></td>
+                    <td><%= item.quantity %></td>
+                    <td><%= item.unit_price %> €</td>
+                    <td id="total_price-<%= item.id %>"><%= item.total_price.round(2) %> €</td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>            
+          </div>
+        </div>
+        <% if can? :update, @shopping %>
+        <% unless @shopping.archived? %>
+          <%= link_to edit_shopping_path(@shopping), class: 'btn btn-success' do %>
+            <i class="fa fa-pencil-square-o"></i> Edit
+          <% end %>
+        <% end %>
+      <% end %>
+      </div>
+
+  </div>
+
+</div>
