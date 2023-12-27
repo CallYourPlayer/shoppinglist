@@ -87,6 +87,7 @@
 .d-flex {
     display: flex!important;
     flex-direction: column;
+    text-align: center;
 }
 
 .link-body-emphasis:focus, .link-body-emphasis:hover {
@@ -464,6 +465,10 @@ body {
 
 .fst-italic {
     font-style: italic!important;
+}
+
+.subheading {
+    font-size: 1.3em;
 }
 
 .rounded {
