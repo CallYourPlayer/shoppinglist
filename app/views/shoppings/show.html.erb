@@ -36,6 +36,14 @@
                   </tr>
                 <% end %>
               </tbody>
+              <tfoot>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <th>Totale</th>
+                  <th><%= @shopping.total.round(2) %> €</th>
+                </tr>
+              </tfoot>
             </table>            
           </div>
         </div>
