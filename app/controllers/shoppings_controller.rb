@@ -13,6 +13,7 @@ class ShoppingsController < ApplicationController
 
   def search
     @shoppings = nil
+    @errMsg = ''
     logger.debug "Dentro Search"
     @period = params[:period]
     if @period.present?
@@ -44,16 +45,24 @@ class ShoppingsController < ApplicationController
 
   def search_by_dates
     @shoppings = nil
+    @errMsg = ''
+    @result_total_price = 0
     @date_start = params[:date_start]
     @date_end = params[:date_end]
     logger.debug "Date Start: #{@date_start}"
     logger.debug "Date End: #{@date_end}"
-    @shoppings = Shopping.where(:user_id => current_user.id).where(:date_shopping => @date_start..@date_end).order(date_shopping: :asc)
-    @result_total_price = @shoppings.sum(:total_price)
-    #authorize! :read, @shoppings
-    respond_to do |format|
-      format.html
-      format.js
+    if @date_start > @date_end
+      @errMsg = 'La data iniziale non può essere maggiore della data finale'
+    elsif @date_start == '' || @date_end == ''
+      @errMsg = 'Specificare date inziale e finale della ricerca'
+    else
+      @shoppings = Shopping.where(:user_id => current_user.id).where(:date_shopping => @date_start..@date_end).order(date_shopping: :asc)
+      @result_total_price = @shoppings.sum(:total_price)
+      #authorize! :read, @shoppings
+      respond_to do |format|
+        format.html
+        format.js
+      end
     end
   end
 

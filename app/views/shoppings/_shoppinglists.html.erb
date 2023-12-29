@@ -1,4 +1,6 @@
-<% if @date_start.present? && @date_end.present? %>
+<% if @errMsg != '' %>
+	<h4 class="text-muted" style="color:red;"><%= @errMsg %></h4>
+<% elsif @date_start.present? && @date_end.present? %>
 	<h4 class="text-muted">Spese dal <%= @date_start %> al <%= @date_end %></h4>
 <% end %>
 
@@ -17,46 +19,48 @@
 							</tr>
 						</thead>
 						<tbody>
-							<% @shoppings.each do |shopping| %>
-								<tr>
-									<td>
-										<i class="fa fa-money"></i>
-										<span class="user-link"><%= shopping.total.round(2) %> €</span>
-									</td>
-									<td><%= shopping.date_shopping.strftime("%d/%m/%Y") %></td>
-									<td>
-										<% if !shopping.archived? %> 
-					 						<span class="badge badge-success"> 
-					 							<i class="fa fa-shopping-cart"></i>
-					 							<%= shopping.status.capitalize %>
-					 					<% else %>
-											<span class="badge badge-warning"><i class="fa fa-credit-card">	</i>
-											<%= shopping.status.capitalize %>
-					 						</span>
-										<% end %>
-									</td>
-									<td>
-										<% if can? :read, shopping %>
-											<%= link_to shopping, class:'btn btn-xs btn-info' do %>
-												<i class="fa fa-search-plus"></i>
+							<% unless @shoppings == nil %>
+								<% @shoppings.each do |shopping| %>
+									<tr>
+										<td>
+											<i class="fa fa-money"></i>
+											<span class="user-link"><%= shopping.total.round(2) %> €</span>
+										</td>
+										<td><%= shopping.date_shopping.strftime("%d/%m/%Y") %></td>
+										<td>
+											<% if !shopping.archived? %> 
+						 						<span class="badge badge-success"> 
+						 							<i class="fa fa-shopping-cart"></i>
+						 							<%= shopping.status.capitalize %>
+						 					<% else %>
+												<span class="badge badge-warning"><i class="fa fa-credit-card">	</i>
+												<%= shopping.status.capitalize %>
+						 						</span>
 											<% end %>
-										<% end %>
-										<% if can? :update, shopping %>
-											<% unless shopping.archived? %>
-												<%= link_to edit_shopping_path(shopping), class: 'btn btn-xs btn-success' do %>
-													<i class="fa fa-pencil-square-o"></i>
-												<% end %> 
-											<% end %>
-										<% end %>
-										<% if can? :destroy, shopping %>
-											<% unless shopping.archived? %>
-											    <%= link_to shopping, class:'btn btn-xs btn-danger', method: :delete do %>
-													<i class="fa fa-trash"></i>
+										</td>
+										<td>
+											<% if can? :read, shopping %>
+												<%= link_to shopping, class:'btn btn-xs btn-info' do %>
+													<i class="fa fa-search-plus"></i>
 												<% end %>
 											<% end %>
-										<% end %>
-									</td>
-								</tr>
+											<% if can? :update, shopping %>
+												<% unless shopping.archived? %>
+													<%= link_to edit_shopping_path(shopping), class: 'btn btn-xs btn-success' do %>
+														<i class="fa fa-pencil-square-o"></i>
+													<% end %> 
+												<% end %>
+											<% end %>
+											<% if can? :destroy, shopping %>
+												<% unless shopping.archived? %>
+												    <%= link_to shopping, class:'btn btn-xs btn-danger', method: :delete do %>
+														<i class="fa fa-trash"></i>
+													<% end %>
+												<% end %>
+											<% end %>
+										</td>
+									</tr>
+								<% end %>
 							<% end %>
 						</tbody>
 						<tfoot>
