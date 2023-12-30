@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
 	before_action :authenticate_user!
-	load_and_authorize_resource except: [:calculateprice, :paid_item]
+	load_and_authorize_resource except: [:calculateprice, :paid_item, :set_taken]
 
 	rescue_from CanCan::AccessDenied do |exception|
     	redirect_to root_url, :alert => exception.message
@@ -116,8 +116,22 @@ class ItemsController < ApplicationController
 		end
 	end
 
+	def set_taken
+		@item_id = params[:id]
+		@taken = params[:taken]
+		@item = Item.find(@item_id)
+		@item.taken = @taken
+		if @item.save
+			respond_to do |format|
+				format.js 
+			end
+		else
+			format.json { render action: 'edit', controller: 'shoppings', status: :unprocessable_entity }
+		end
+	end
+
 	private
 	def item_params
-		params.require(:item).permit(:name, :quantity, :unit_price, :total_price, :payed)
+		params.require(:item).permit(:name, :quantity, :unit_price, :total_price, :payed, :taken)
 	end
 end

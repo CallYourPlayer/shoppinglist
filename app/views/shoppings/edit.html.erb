@@ -60,7 +60,14 @@
 
 <script>
   $('.itemChk').click(function() {
-    $(this).closest('tr').toggleClass("selectedItem");
+    //$(this).closest('tr').toggleClass("selectedItem");
+    var id = $(this).attr('id').split('_')[1];
+
+    $.ajax({
+      url: '/items/set_taken',
+      type: 'POST',
+      data: {"id": id, "taken": this.checked}
+    });
   });
 
   $('[data-dismiss=modal]').on('click', function (e) {
