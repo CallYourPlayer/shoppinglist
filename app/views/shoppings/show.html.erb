@@ -23,15 +23,15 @@
             <table class="table" id="items-<%= @shopping.id %>">
               <thead>
                 <tr>
-                  <th>Articolo</th><th>Quantità</th><th>Prezzo Unitario</th><th>Prezzo Tot.</th>
+                  <th>Articolo</th><th>Prezzo Unitario</th><th>Quantità</th><th>Prezzo Tot.</th>
                 </tr>
               </thead>
               <tbody>
                 <% @shopping.items.each do |item| %>
                   <tr>
                     <td><span class="fst-italic pl-1"><%= item.name %></span></td>
-                    <td><%= item.quantity %></td>
                     <td><%= item.unit_price %> €</td>
+                    <td><%= item.quantity %></td>
                     <td id="total_price-<%= item.id %>"><%= item.total_price.round(2) %> €</td>
                   </tr>
                 <% end %>
