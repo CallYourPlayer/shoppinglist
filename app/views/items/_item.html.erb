@@ -1,6 +1,6 @@
 <% unless item.id == nil || item.id == 0 %>
 <tr id="tr_item_<%= item.id %>" <% if item.taken? %> class="selectedItem"<% end %>>
-  <td><input type="checkbox" name="itemChk" class="itemChk" id="itemChk_<%= item.id %>">
+  <td><input type="checkbox" name="itemChk" class="itemChk" id="itemChk_<%= item.id %>" <% if item.taken? %> checked<% end %>></td>
   <td><%= item.name %></td>
   <td id="item-<%= item.id %>"><%= item.quantity %></td>
   <td><%= item.unit_price %> €</td>
