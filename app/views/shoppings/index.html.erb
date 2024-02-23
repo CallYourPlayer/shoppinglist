@@ -60,3 +60,8 @@
   <%= button_to "Sign in", new_user_session_path %> 
 <% end %>
 
+<script>
+  $(document).ready( function () {
+  	$('#list-shopping').DataTable({searching: false});
+	} );
+</script>
