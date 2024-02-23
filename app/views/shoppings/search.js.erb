@@ -1,4 +1,6 @@
 $('#shoppingTable').html("<%= j render partial: 'shoppinglists' %>");
 $(document).ready( function () {
-	$('#list-shopping').DataTable({searching: false});
+	$('#list-shopping').DataTable({searching: false, columnDefs: [
+   		{ orderable: false, targets: [1,3] }
+		]});
 } );
