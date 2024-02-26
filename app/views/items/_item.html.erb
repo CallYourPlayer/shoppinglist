@@ -1,7 +1,15 @@
 <% unless item.id == nil || item.id == 0 %>
 <tr id="tr_item_<%= item.id %>" <% if item.taken? %> class="selectedItem"<% end %>>
   <td><input type="checkbox" name="itemChk" class="itemChk" id="itemChk_<%= item.id %>" <% if item.taken? %> checked<% end %>></td>
-  <td><%= item.name %></td>
+  <td id="item_name-<%= item.id %>">
+    <% if (can? :update, item) && (!item.payed?) %>
+      <%= link_to edit_shopping_item_path(item.shopping_id, item), remote: true do %>
+        <%= item.name %>
+    <% end %>
+    <% else %>
+        <%= item.name %>
+    <% end %>
+  </td>
   <td id="item-<%= item.id %>"><%= item.quantity %></td>
   <td><%= item.unit_price %> €</td>
   <td id="total_price-<%= item.id %>"><%= item.total_price.round(2) %> €</td>

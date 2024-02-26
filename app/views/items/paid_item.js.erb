@@ -1,6 +1,8 @@
 <% if @item.payed? %> 
+	$("#item_name-<%= @item.id %>").html('<%= @item.name %>');
 	$("#item_paid-<%= @item.id %>").html('<%= link_to "Pagato", {controller: "items", action: "paid_item", id: @item.id}, { class: "btn btn-success btn-xs", method: :post, remote: true} %>');
 <% else %>
+	$("#item_name-<%= @item.id %>").html('<%= link_to edit_shopping_item_path(@item.shopping_id, @item), remote: true do %><%= @item.name %><% end %>');
 	$("#item_paid-<%= @item.id %>").html('<%= link_to "Da Pagare", {controller: "items", action: "paid_item", id: @item.id}, { class: "btn btn-primary btn-xs", method: :post, remote: true} %>');
 <% end %>
 
