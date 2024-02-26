@@ -64,8 +64,12 @@
   $(document).ready( function () {
   	$.fn.dataTable.moment( 'DD/MM/YYYY' );
 
-  	$('#list-shopping').DataTable({searching: false, columnDefs: [
+  	$('#list-shopping').DataTable({
+  		searching: false, 
+  		columnDefs: [
    		{ orderable: false, targets: [3] }
-		]});
+			],
+			order: [[1, 'desc']]
+  	});
 	} );
 </script>
