@@ -2,5 +2,5 @@ $('#shoppingTable').html("<%= j render partial: 'shoppinglists' %>");
 $(document).ready( function () {
 	$('#list-shopping').DataTable({searching: false, columnDefs: [
    		{ orderable: false, targets: [3] }
-		]});
+		], order: [[1, 'desc']]});
 } );
