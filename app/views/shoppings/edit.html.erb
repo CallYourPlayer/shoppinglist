@@ -91,5 +91,15 @@
   $('#myModalLabel', target).text('Crea nuovo articolo');
 
   $(target).find('form').attr('action', '/shoppings/<%= @shopping.id %>/items')
-})
+});
+
+$(document).ready( function () {
+    $('#items-<%= @shopping.id %>').DataTable({
+      paging: false, 
+      columnDefs: [
+      { orderable: false, targets: [0,6,7] }
+      ],
+      order: [[1, 'desc']]
+    });
+});
 </script>

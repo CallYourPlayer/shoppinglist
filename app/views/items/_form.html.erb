@@ -21,14 +21,42 @@
   </div>
   <div class="form-group">
     <%= form.label :quantity %><br>
-    <%= form.number_field :quantity, value: (form.object.quantity || 1), class: 'form-control' %>
+    <div class="quantity">
+      <span class="quantity-add quantity-button btn btn-success"></span>
+      <%= form.number_field :quantity, value: (form.object.quantity || 1), class: 'form-control' %>
+      <span class="quantity-remove quantity-button btn btn-warning"></span>
+    </div>
   </div>
   <div class="form-group">
     <%= form.label :unit_price %><br>
     <%= form.number_field :unit_price, value: (form.object.unit_price || 0), step: :any, class: 'form-control' %>
   </div>
+
+  <div class="form-group">
+    <%= form.label :total_price %><br>
+    <span id="total_price"></span>
+  </div>
+
   <div class="form-group">
     <%= form.submit class: 'btn btn-primary' %>
     <%= link_to "Indietro", edit_shopping_path(@shopping), class: 'btn btn-danger' %>
   </div>
 <% end %>
+<script>
+  $('.quantity-button').off('click').on('click', function () {
+  
+    if ($(this).hasClass('quantity-add')) {
+      var addValue = parseInt($(this).parent().find('input').val()) + 1;
+      $(this).parent().find('input').val(addValue)
+    }
+
+    if ($(this).hasClass('quantity-remove')) {
+      var removeValue = parseInt($(this).parent().find('input').val()) - 1;
+      if( removeValue == 0 ) {
+        removeValue = 1;
+      }
+      $(this).parent().find('input').val(removeValue)
+    }
+
+  });
+</script>

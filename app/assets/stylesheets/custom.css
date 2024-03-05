@@ -527,3 +527,52 @@ body {
     margin-right: calc(var(--bs-gutter-x)/ -2);
     margin-left: calc(var(--bs-gutter-x)/ -2);
 }
+
+.quantity {
+  position: relative;
+  display: inline-block;
+  color: #7f7f7f;
+}
+
+.quantity input[type="number"] {
+    float: right;
+    width: auto;
+}
+
+.quantity input[type="number"]:focus {
+    border-color: #57b8f6 !important;
+}
+
+.quantity input[type="number"]:hover {
+    border-color: #a5a5a5;
+}
+
+.quantity-button {
+    width: 39px;
+    height: 34px;
+    display: inline-block;
+    float: right;
+    position: relative;
+    cursor: pointer;
+}
+
+
+.quantity-button::before,
+.quantity-button::after {
+  position: absolute;
+  top: calc(50% - 1px);
+  left: calc(50% - 7px);
+  content: '';
+  width: 14px;
+  height: 2px;
+  background-color: currentColor;
+  display: block;
+}
+
+.quantity-remove::after {
+  display: none;
+}
+
+.quantity-add::after {
+  transform: rotate(90deg);
+}
