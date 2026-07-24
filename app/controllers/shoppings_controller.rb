@@ -107,7 +107,7 @@ class ShoppingsController < ApplicationController
     @shopping = Shopping.find(params[:id])
     #@shopping.user_id = current_user.id
     if @shopping.update(shopping_params)
-      if @shopping.status = 'pagato'
+      if @shopping.status == 'pagato'
         @shopping.items.update_all(payed: true)
       end
       redirect_to @shopping

@@ -17,6 +17,8 @@ development:
   database: shoppinglist_development
   username: shoppinglist
   password: shopping1
+  # localhost by default; the Docker dev stack sets DATABASE_HOST=db.
+  host: <%= ENV.fetch("DATABASE_HOST", "localhost") %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -26,6 +28,7 @@ test:
   database: shoppinglist_test
   username: shoppinglist
   password: shopping1
+  host: <%= ENV.fetch("DATABASE_HOST", "localhost") %>
 
 production:
   <<: *default

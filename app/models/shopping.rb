@@ -15,6 +15,6 @@ class Shopping < ApplicationRecord
   	end
 
   	def self.by_dates(date_start, date_end)
-  		Shopping.where(:date_shopping => @date_start..@date_end).order(date_shopping: :asc)
+  		Shopping.where(:date_shopping => date_start..date_end).order(date_shopping: :asc)
   	end
 end

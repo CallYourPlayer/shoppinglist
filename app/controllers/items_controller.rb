@@ -15,26 +15,18 @@ class ItemsController < ApplicationController
 
 	def create
 		@shopping = Shopping.find(params[:shopping_id])
-		@item = @shopping.items.create(item_params)
-		logger.debug @item.shopping_id
-		#@item.set_total(@item.unit_price * @item.quantity)
-		#@item.total_price = @item.quantity * @item.unit_price
+		@item = @shopping.items.new(item_params)
 		respond_to do |format|
-			if @item.update(item_params)
-				@shopping.total_price = @shopping.total
-				@shopping.save
+			if @item.save
+				@shopping.reload
 				format.html { redirect_to edit_shopping_path(@shopping), notice: 'Articolo creato con successo.' }
 	        	format.json { render action: 'edit', controller: 'shoppings', status: :created, location: edit_shopping_path(@shopping) }
-	        	# added:
-	       		format.json { render action: 'edit', controller: 'shoppings', status: :created, location: edit_shopping_path(@shopping) }
 	      	else
 	        	format.html { render action: 'new' }
 	        	format.json { render json: @item.errors, status: :unprocessable_entity }
-	        	# added:
 	        	format.js   { render json: @item.errors, status: :unprocessable_entity }
 	      	end
       	end
-		#redirect_to edit_shopping_path(@shopping)
 	end
 
 	def edit
@@ -51,8 +43,7 @@ class ItemsController < ApplicationController
 	    @shopping = Shopping.find(params[:shopping_id])
 	    #@item.set_total(item_params[:unit_price], item_params[:quantity])
 	    if @item.update(item_params)
-	    	@shopping.total_price = @shopping.total
-	    	@shopping.save
+	    	@shopping.reload
 	      	redirect_to edit_shopping_path(@shopping)
 	    else
 	      render :edit, status: :unprocessable_entity
@@ -64,6 +55,7 @@ class ItemsController < ApplicationController
     	authorize! :destroy, @item
     	@shopping = Shopping.find(@item.shopping_id)
     	@item.destroy
+    	@shopping.reload
 
     	redirect_to edit_shopping_path(@shopping), status: :see_other
   	end
@@ -72,8 +64,7 @@ class ItemsController < ApplicationController
 		@item = Item.find(params[:my][:id])
 		authorize! :destroy, @item
 		@item.destroy
-		@shopping =Shopping.find(@item.shopping_id)
-		@shopping.total_price = @shopping.total
+		@shopping = Shopping.find(@item.shopping_id)
 		respond_to do |format|
 			format.html
 			format.js
@@ -82,27 +73,24 @@ class ItemsController < ApplicationController
 
 	def calculateprice
 		@item = Item.find(params[:my][:id])
-		#authorize! :update, @item
+		authorize! :update, @item
 		@k = params[:my][:k]
 		@op = params[:my][:op]
 		if @op == "sum"
 			@item.update_attribute :quantity, @item.quantity + @k.to_i
-		else
-			if @item.quantity > 1
-				@item.update_attribute :quantity, @item.quantity - @k.to_i
-			end
+		elsif @item.quantity - @k.to_i >= 1
+			@item.update_attribute :quantity, @item.quantity - @k.to_i
 		end
-		@item.update_attribute :total_price, @item.quantity * @item.unit_price
-		@shopping =Shopping.find(@item.shopping_id)
-		@shopping.total_price = @shopping.total
+		# before_save recomputes total_price; after_save syncs the shopping total.
+		@shopping = Shopping.find(@item.shopping_id)
 		respond_to do |format|
-			format.js 
+			format.js
 		end
 	end
 
 	def paid_item
 		@item = Item.find(params[:id])
-		#authorize! :update, @item
+		authorize! :update, @item
 		if @item.payed?
 			@item.update_attribute :payed, false
 		else
@@ -120,13 +108,14 @@ class ItemsController < ApplicationController
 		@item_id = params[:id]
 		@taken = params[:taken]
 		@item = Item.find(@item_id)
+		authorize! :update, @item
 		@item.taken = @taken
-		if @item.save
-			respond_to do |format|
-				format.js 
+		respond_to do |format|
+			if @item.save
+				format.js
+			else
+				format.json { render action: 'edit', controller: 'shoppings', status: :unprocessable_entity }
 			end
-		else
-			format.json { render action: 'edit', controller: 'shoppings', status: :unprocessable_entity }
 		end
 	end
 

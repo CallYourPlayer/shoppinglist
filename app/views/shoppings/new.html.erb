@@ -1,5 +1,5 @@
 <h1>Nuova Spesa</h1>
-<p>Totale: <span id="shoppingTotal-<%= @shopping.id %>"><%= @shopping.total %> </span>€</p>
+<p>Totale: <span id="shoppingTotal-<%= @shopping.id %>"><%= eur(@shopping.total) %></span></p>
 
 <h2>Articoli</h2>
 <table class="table table-striped" id="items-<%= @shopping.id %>">

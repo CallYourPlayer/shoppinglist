@@ -24,7 +24,7 @@
 									<tr>
 										<td>
 											<i class="fa fa-money"></i>
-											<span class="user-link"><%= shopping.total.round(2) %> €</span>
+											<span class="user-link"><%= eur(shopping.total) %></span>
 										</td>
 										<td><%= shopping.date_shopping.strftime("%d/%m/%Y") %></td>
 										<td>
@@ -53,7 +53,8 @@
 											<% end %>
 											<% if can? :destroy, shopping %>
 												<% unless shopping.archived? %>
-												    <%= link_to shopping, class:'btn btn-xs btn-danger', method: :delete do %>
+												    <%= link_to shopping, class:'btn btn-xs btn-danger', method: :delete,
+															data: { confirm: 'Eliminare definitivamente questa spesa e tutti i suoi articoli?' } do %>
 														<i class="fa fa-trash"></i>
 													<% end %>
 												<% end %>
@@ -65,7 +66,7 @@
 						</tbody>
 						<tfoot>
 							<tr>
-								<th>Totale: <%= @result_total_price.round(2) %> €</th>
+								<th>Totale: <%= eur(@result_total_price) %></th>
 								<td></td>
 								<td></td>
 								<td></td>

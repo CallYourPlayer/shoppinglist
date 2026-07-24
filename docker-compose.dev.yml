@@ -1,0 +1,42 @@
+# Local development / verification stack.
+# Usage:
+#   docker compose -f docker-compose.dev.yml build
+#   docker compose -f docker-compose.dev.yml up -d db
+#   docker compose -f docker-compose.dev.yml run --rm app bin/rails db:prepare
+#   docker compose -f docker-compose.dev.yml run --rm app bin/rails test
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: shoppinglist
+      POSTGRES_PASSWORD: shopping1
+      POSTGRES_DB: shoppinglist_development
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U shoppinglist -d shoppinglist_development"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_HOST: db
+      RAILS_ENV: development
+    volumes:
+      - .:/rails
+      - bundle:/usr/local/bundle
+    # Map to 3001 on the host since 3000 is already used locally.
+    ports:
+      - "3001:3000"
+    command: sleep infinity
+
+volumes:
+  pgdata:
+  bundle:

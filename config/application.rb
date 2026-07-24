@@ -16,6 +16,11 @@ module Shoppinglist
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w(assets tasks))
 
+    # Italian as the default UI language; fall back to English for any missing
+    # keys (e.g. Devise) so nothing renders as "translation missing".
+    config.i18n.default_locale = :it
+    config.i18n.fallbacks = [:en]
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

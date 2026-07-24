@@ -2,7 +2,7 @@
   <div class="container">
     <header class="text-center mb-5">
       <h1 class="display-4">Dettaglio Spesa</h1>
-      <p class="fst-italic text-muted subheading"><i class="fa fa-money"></i> Totale: <%= @shopping.total.round(2) %> €</p>
+      <p class="fst-italic text-muted subheading"><i class="fa fa-money"></i> Totale: <%= eur(@shopping.total) %></p>
     </header>
 
     <div class="row rowCenter">
@@ -13,10 +13,9 @@
               <i class="fa fa-calendar fa-3x"></i>
               <div class="ms-3">
                 <h4 class="text-uppercase fw-weight-bold mb-0" style="padding-top: 10px; padding-left: 10px;">
-                  <%= @shopping.date_shopping.strftime("%A") %>
+                  <%= l(@shopping.date_shopping, format: "%A") %>
                 </h4>
-                <p class="text-gray fst-italic mb-0" style="padding-left: 10px;"><%= @shopping.date_shopping.strftime("%d") %>
-                    <%= @shopping.date_shopping.strftime("%B") %> <%= @shopping.date_shopping.strftime("%Y") %>
+                <p class="text-gray fst-italic mb-0" style="padding-left: 10px;"><%= l(@shopping.date_shopping, format: "%d %B %Y") %>
                 </p>
               </div>
             </div>
@@ -30,9 +29,9 @@
                 <% @shopping.items.each do |item| %>
                   <tr>
                     <td><span class="fst-italic pl-1"><%= item.name %></span></td>
-                    <td><%= item.unit_price %> €</td>
+                    <td><%= eur(item.unit_price) %></td>
                     <td><%= item.quantity %></td>
-                    <td id="total_price-<%= item.id %>"><%= item.total_price.round(2) %> €</td>
+                    <td id="total_price-<%= item.id %>"><%= eur(item.total_price) %></td>
                   </tr>
                 <% end %>
               </tbody>
@@ -41,7 +40,7 @@
                   <td></td>
                   <td></td>
                   <th>Totale</th>
-                  <th><%= @shopping.total.round(2) %> €</th>
+                  <th><%= eur(@shopping.total) %></th>
                 </tr>
               </tfoot>
             </table>            
