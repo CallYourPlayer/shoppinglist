@@ -10,9 +10,23 @@
         <%= item.name %>
     <% end %>
   </td>
-  <td id="item-<%= item.id %>"><%= item.quantity %></td>
-  <td><%= item.unit_price %> €</td>
-  <td id="total_price-<%= item.id %>"><%= item.total_price.round(2) %> €</td>
+  <td class="qty-cell">
+    <% if (can? :update, item) && (!item.payed?) %>
+      <%= link_to '−', {controller: 'items', action: 'calculateprice',
+              my: {id: item.id, k: '1', op: 'min'}},
+              method: :post, :remote => true,
+              class: "btn btn-warning btn-xs" %>
+    <% end %>
+    <span id="item-<%= item.id %>"><%= item.quantity %></span>
+    <% if (can? :update, item) && (!item.payed?) %>
+      <%= link_to '+', {controller: 'items', action: 'calculateprice',
+              my: {id: item.id, k: '1', op: 'sum'}},
+              method: :post, :remote => true,
+              class: "btn btn-info btn-xs" %>
+    <% end %>
+  </td>
+  <td class="hidden-xs"><%= eur(item.unit_price) %></td>
+  <td id="total_price-<%= item.id %>"><%= eur(item.total_price) %></td>
   <td id="item_paid-<%= item.id %>">
     <%#<%= link_to "Da Pagare", { controller: 'items', action: :paid_item, id: item.id }, { class: "btn btn-primary btn-xs", method: :post, remote: true} %>
     <% if item.payed? %>
@@ -28,20 +42,6 @@
     <% end %>
   </td>
   <td>
-    <% if can? :update, item %>
-      <%= link_to '-1', {controller: 'items', action: 'calculateprice', 
-              my: {id: item.id, k: '1', op: 'min'}}, 
-              method: :post, :remote => true,
-              class: "btn btn-warning btn-xs" %>
-            
-      <%= link_to '+1', {controller: 'items', action: 'calculateprice', 
-              my: {id: item.id, k: '1', op: 'sum'}}, 
-              method: :post, :remote => true,
-              class: "btn btn-info btn-xs" %>
-        <%#</div>#%>
-    <% end %>
-  </td>
-  <td>
     <div class="button-container">
       <% if can? :update, item %>
         <%= link_to edit_shopping_item_path(item.shopping_id, item), remote: true, class: 'btn btn-success btn-xs' do %>
@@ -49,7 +49,8 @@
         <% end %>
       <% end %>
       <% if can? :destroy, item %>
-        <%= button_to shopping_item_path(item.shopping_id, item.id), class: 'btn btn-danger btn-xs', method: :delete do %>
+        <%= button_to shopping_item_path(item.shopping_id, item.id), class: 'btn btn-danger btn-xs', method: :delete,
+              form: { data: { confirm: "Eliminare l'articolo \"#{item.name}\"?" } } do %>
           <i class="fa fa-trash"></i>
         <% end %>
       <% end %>

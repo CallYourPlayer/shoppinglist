@@ -72,6 +72,8 @@ class ShoppingsController < ApplicationController
   end
 
   def new
+    current_user.shoppings.left_joins(:items).where(items: { id: nil }).destroy_all
+
     @shopping = Shopping.new
     authorize! :create, @shopping
     @shopping.date_shopping = Time.now
@@ -107,7 +109,7 @@ class ShoppingsController < ApplicationController
     @shopping = Shopping.find(params[:id])
     #@shopping.user_id = current_user.id
     if @shopping.update(shopping_params)
-      if @shopping.status = 'pagato'
+      if @shopping.status == 'pagato'
         @shopping.items.update_all(payed: true)
       end
       redirect_to @shopping

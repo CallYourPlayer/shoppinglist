@@ -1,0 +1,40 @@
+it:
+  activerecord:
+    models:
+      shopping: Spesa
+      item: Articolo
+    attributes:
+      shopping:
+        date_shopping: Data
+        total_price: Totale
+        status: Stato
+      item:
+        name: Nome
+        quantity: Quantità
+        unit_price: Prezzo unitario
+        total_price: Prezzo totale
+        payed: Pagato
+        taken: Preso
+  helpers:
+    submit:
+      create: "Crea"
+      update: "Aggiorna"
+      item:
+        create: "Crea Articolo"
+        update: "Aggiorna Articolo"
+  date:
+    formats:
+      default: "%d/%m/%Y"
+      long: "%A %d %B %Y"
+    day_names: [domenica, lunedì, martedì, mercoledì, giovedì, venerdì, sabato]
+    abbr_day_names: [dom, lun, mar, mer, gio, ven, sab]
+    month_names: [~, gennaio, febbraio, marzo, aprile, maggio, giugno, luglio, agosto, settembre, ottobre, novembre, dicembre]
+    abbr_month_names: [~, gen, feb, mar, apr, mag, giu, lug, ago, set, ott, nov, dic]
+  number:
+    currency:
+      format:
+        unit: "€"
+        format: "%n %u"
+        separator: ","
+        delimiter: "."
+        precision: 2
