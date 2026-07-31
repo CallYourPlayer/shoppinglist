@@ -35,7 +35,7 @@ services:
     # Map to 3001 on the host since 3000 is already used locally.
     ports:
       - "3001:3000"
-    #command: sleep infinity
+    command: sleep infinity
 
 volumes:
   pgdata:
