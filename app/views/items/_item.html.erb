@@ -10,8 +10,22 @@
         <%= item.name %>
     <% end %>
   </td>
-  <td id="item-<%= item.id %>"><%= item.quantity %></td>
-  <td><%= eur(item.unit_price) %></td>
+  <td class="qty-cell">
+    <% if (can? :update, item) && (!item.payed?) %>
+      <%= link_to '−', {controller: 'items', action: 'calculateprice',
+              my: {id: item.id, k: '1', op: 'min'}},
+              method: :post, :remote => true,
+              class: "btn btn-warning btn-xs" %>
+    <% end %>
+    <span id="item-<%= item.id %>"><%= item.quantity %></span>
+    <% if (can? :update, item) && (!item.payed?) %>
+      <%= link_to '+', {controller: 'items', action: 'calculateprice',
+              my: {id: item.id, k: '1', op: 'sum'}},
+              method: :post, :remote => true,
+              class: "btn btn-info btn-xs" %>
+    <% end %>
+  </td>
+  <td class="hidden-xs"><%= eur(item.unit_price) %></td>
   <td id="total_price-<%= item.id %>"><%= eur(item.total_price) %></td>
   <td id="item_paid-<%= item.id %>">
     <%#<%= link_to "Da Pagare", { controller: 'items', action: :paid_item, id: item.id }, { class: "btn btn-primary btn-xs", method: :post, remote: true} %>
@@ -25,20 +39,6 @@
               class: "btn btn-primary btn-xs" %>
     <%#<%= link_to controller: 'items', action: 'calculateprice', id: item.id, method: :post, :remote => true,
               class: "btn btn-warning btn-xs" do %>
-    <% end %>
-  </td>
-  <td>
-    <% if can? :update, item %>
-      <%= link_to '-1', {controller: 'items', action: 'calculateprice', 
-              my: {id: item.id, k: '1', op: 'min'}}, 
-              method: :post, :remote => true,
-              class: "btn btn-warning btn-xs" %>
-            
-      <%= link_to '+1', {controller: 'items', action: 'calculateprice', 
-              my: {id: item.id, k: '1', op: 'sum'}}, 
-              method: :post, :remote => true,
-              class: "btn btn-info btn-xs" %>
-        <%#</div>#%>
     <% end %>
   </td>
   <td>

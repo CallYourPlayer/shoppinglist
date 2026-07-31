@@ -1,12 +1,16 @@
-$('#items-<%= @shopping.id %> > tbody:last-child').append('<tr id="tr_item_<%= item.id %>">' + 
-  '<td><%= item.name %></td>' +
-  '<td id="item-<%= item.id %>"><%= item.quantity %></td>' +
-  '<td><%= eur(item.unit_price) %></td>' +
-  '<td id="total_price-<%= item.id %>"><%= eur(item.total_price) %></td>' +
-  '<td><%= link_to "-1", {controller: "items", action: "calculateprice", my: {id: item.id, k: "1", op: "min"}}, :method => :post, :remote => true, class: "btn btn-warning btn-xs" %> ' +
-  '<td><%= link_to "+1", {controller: "items", action: "calculateprice", my: {id: item.id, k: "1", op: "sum"}}, :method => :post, :remote => true, class: "btn btn-info btn-xs" %>' +
-  '</td>' + 
+$('#items-<%= @shopping.id %> > tbody:last-child').append('<tr id="tr_item_<%= @item.id %>">' +
+  '<td></td>' +
+  '<td id="item_name-<%= @item.id %>"><%= @item.name %></td>' +
+  '<td class="qty-cell">' +
+    '<%= link_to "−", {controller: "items", action: "calculateprice", my: {id: @item.id, k: "1", op: "min"}}, :method => :post, :remote => true, class: "btn btn-warning btn-xs" %>' +
+    '<span id="item-<%= @item.id %>"><%= @item.quantity %></span>' +
+    '<%= link_to "+", {controller: "items", action: "calculateprice", my: {id: @item.id, k: "1", op: "sum"}}, :method => :post, :remote => true, class: "btn btn-info btn-xs" %>' +
+  '</td>' +
+  '<td class="hidden-xs"><%= eur(@item.unit_price) %></td>' +
+  '<td id="total_price-<%= @item.id %>"><%= eur(@item.total_price) %></td>' +
+  '<td id="item_paid-<%= @item.id %>"><%= link_to "Da Pagare", {controller: "items", action: "paid_item", id: @item.id}, class: "btn btn-primary btn-xs", method: :post, remote: true %></td>' +
   '<td>' +
-    '<%= link_to "Modifica", edit_shopping_item_path(item), :remote => true, class: "btn btn-success btn-xs" %> <%= link_to "Elimina", {controller: "items", action: "remove", my: {id: item.id}}, :method => :delete, :remote => true, data: { confirm: "Eliminare questo articolo?" }, class: "btn btn-danger btn-xs" %>' +
+    '<%= link_to edit_shopping_item_path(@item.shopping_id, @item), remote: true, class: "btn btn-success btn-xs" do %><i class="fa fa-pencil-square-o"></i><% end %>' +
+    '<%= button_to shopping_item_path(@item.shopping_id, @item.id), class: "btn btn-danger btn-xs", method: :delete, form: { data: { confirm: "Eliminare questo articolo?" } } do %><i class="fa fa-trash"></i><% end %>' +
   '</td>' +
 '</tr>');

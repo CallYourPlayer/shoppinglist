@@ -72,6 +72,8 @@ class ShoppingsController < ApplicationController
   end
 
   def new
+    current_user.shoppings.left_joins(:items).where(items: { id: nil }).destroy_all
+
     @shopping = Shopping.new
     authorize! :create, @shopping
     @shopping.date_shopping = Time.now
